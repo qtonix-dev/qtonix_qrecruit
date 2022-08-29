@@ -22,21 +22,40 @@ class CandidateController extends Controller
 {
     public function checkDuplicacyWithEmail(Request $request){
         $input=$request->all();
-        if(CandidateDetail::where('email',$input['email'])->first()){
-            $candidate_found=true;
+
+        if(isset($input['candidate_id'])){
+           if(CandidateDetail::where('email',$input['email'])->where('id','<>',$input['candidate_id'])->first()){
+                $candidate_found=true;
+            }else{
+                $candidate_found=false;
+            } 
         }else{
-            $candidate_found=false;
+            if(CandidateDetail::where('email',$input['email'])->first()){
+                $candidate_found=true;
+            }else{
+                $candidate_found=false;
+            }
         }
+
+        
 
         return ['status'=>true,'candidate_found'=>$candidate_found];
         
     }
     public function checkDuplicacyWithMobileNo(Request $request){
         $input=$request->all();
-        if(CandidateDetail::where('mobileNo',$input['mobileNo'])->orWhere('altMobileNo',$input['mobileNo'])->first()){
-            $candidate_found=true;
+        if(isset($input['candidate_id'])){
+                if(CandidateDetail::where(function ($query) use ($input) { $query->where('mobileNo',$input['mobileNo'])->orWhere('altMobileNo',$input['mobileNo']);})->where('id','<>',$input['candidate_id'])->first()){
+                    $candidate_found=true;
+                }else{
+                    $candidate_found=false;
+                }
         }else{
-            $candidate_found=false;
+                if(CandidateDetail::where(function ($query) use ($input) { $query->where('mobileNo',$input['mobileNo'])->orWhere('altMobileNo',$input['mobileNo']);})->first()){
+                    $candidate_found=true;
+                }else{
+                    $candidate_found=false;
+                }
         }
 
         return ['status'=>true,'candidate_found'=>$candidate_found];

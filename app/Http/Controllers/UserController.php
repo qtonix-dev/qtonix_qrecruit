@@ -123,6 +123,7 @@ class UserController extends Controller
                 $user['experience_details']=[];
                 $user['candidate_skills']=[];
             }
+            $user['access']=json_decode($user['access']);
 
             return ['status'=>true,'message'=>'User found','user_details'=>$user];
         }
@@ -156,6 +157,7 @@ class UserController extends Controller
                 $managers=User::where('user_type','Manager')->get();
                  $leaders=[];
             }
+            $user['access']=json_decode($user['access']);
 
 
 
@@ -240,6 +242,9 @@ class UserController extends Controller
         $user=User::find($input['id']);
         $user->name=$input['name'];
         $user->email=$input['email'];
+        if(isset($input['access'])){
+            $user->access=json_encode($input['access']);
+        }
         if(isset($input['company_id'])){
             $user->user_type=$input['company_id'];
         }
@@ -394,6 +399,9 @@ class UserController extends Controller
         $user->leader_id=isset($input['leader_id'])?$input['leader_id']:0;
         $user->user_type=$input['user_type'];
         $user->password=Hash::make($input['password']);
+        if(isset($input['access'])){
+            $user->access=json_encode($input['access']);
+        }
         $user->save();
 
 
