@@ -163,11 +163,14 @@ Route::post('reset/{token}', [ForgotPasswordController::class, 'resetpass']);
 
 
 
+
 Route::get('/{url}', function ($url) {
     return view('welcome');
 });
+
 Route::get('/{url}/{url2}', function ($url,$url2) {
     return view('welcome');
 });
+
 
 Auth::routes();
