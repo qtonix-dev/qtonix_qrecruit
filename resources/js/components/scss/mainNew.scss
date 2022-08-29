@@ -1,0 +1,194 @@
+@import "variables";
+.header-logo-new-one{
+    float: left;
+    margin: 0px 10px 10px 0;
+    background: transparent;
+    width: 100%;
+    height: 64px;
+    text-align: center;
+}
+.custom-sidebar{
+    max-width: 60px !important;
+    min-width: 60px !important;
+    width: 60px !important;
+    background-color: #0b51b7;
+    .ant-menu{
+        background-color: #0b51b7;
+    }
+    .ant-menu-item-icon{
+        color: #dddddd !important;
+    }
+    .ant-menu-vertical{
+       .ant-menu-item{
+             .anticon{
+                color:white;
+            }   
+        } 
+    }
+    .ant-menu-vertical{
+        .ant-menu-item-selected{
+            .anticon{
+                color:black;
+            }
+        }
+    }
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+    padding-right: 50px;
+}
+.custom-sidebar-menu{
+    max-width: 200px !important;
+    min-width: 200px !important;
+    width: 200px !important;
+    background-color: #f8f9fb;
+    padding-left: 16px;
+    border-right: solid 1px #dadada;
+    .ant-menu{
+        background-color: transparent;
+    }
+}
+.ant-menu-item{
+    padding-left: 20px !important;
+}
+.light-header{
+    background-color: transparent !important;
+    margin-top: 10px;
+    .ant-menu{
+        background-color: transparent;
+    }
+    .anticon{
+
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: #fafafa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .search-input{
+        .anticon{
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+        }
+    }
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after{
+        display:none;
+    }
+
+.sidebar-trigger{
+    color:inherit !important;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+    //background-color: transparent;
+}
+.header-logo-new-two{
+    margin-left: 2px;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+.ant-layout-sider-children .ant-menu.ant-menu-inline-collapsed{
+    width:101%;
+}
+.ant-layout{
+    background-color:white;
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item{
+    
+    padding: 0px 5px !important;
+    color: inherit !important;
+}
+.ant-layout-header{
+    padding: 0px 5px 50px 5px !important;
+}
+.search-input{
+    .ant-input-group-addon{
+        border-radius: 25px 0 0 25px;
+    }
+    .ant-input-affix-wrapper{
+        border-radius: 0 25px 25px 0;
+        padding: 0px 0px 0px 8px;
+    }
+
+}
+.canididate-stages{
+    .new{
+
+        border-bottom: solid 3px $newCandidate;
+    }
+    .screening{
+        border-bottom: solid 3px $screeningCandidate;
+    }
+    .qualified{
+        border-bottom: solid 3px $qualifiedCandidate;
+    }
+    .interview{
+        border-bottom: solid 3px $interviewCandidate;
+    }
+    .offer{
+        border-bottom: solid 3px $offerCandidate;
+    }
+    .hired{
+        border-bottom: solid 3px $hiredCandidate;
+    }
+    .rejected{
+        border-bottom: solid 3px $rejectedCandidate;
+    }
+    .ant-statistic-title{
+        font-weight: 600;
+        color: #6c6c6c;
+    }
+}
+.circle{
+
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.circle-area{
+    .new{
+        background-color : $newCandidate;
+    }
+    .screening{
+        background-color : $screeningCandidate;
+    }
+    .qualified{
+        background-color : $qualifiedCandidate;
+    }
+    .interview{
+        background-color : $interviewCandidate;
+    }
+    .offer{
+        background-color : $offerCandidate;
+    }
+    .hired{
+        background-color : $hiredCandidate;
+    }
+    .rejected{
+        background-color : $rejectedCandidate;
+    } 
+}
+.ant-menu-title-content {
+   .anticon svg{
+        font-size: 20px;
+    } 
+}
+.ant-select-arrow svg{
+    font-size: 14px;
+    
+}
+.access_list{
+    .access_item:nth-child(odd){
+      border-right: solid 2px #cecece;   
+    }
+    
+}
+.display-none{
+    display:none
+} 

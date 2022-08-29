@@ -1,0 +1,40 @@
+//TEXT COLORS
+$mainTextcolor:#343647 !important;
+$textcolorWhite:#FFFFFF !important;
+
+
+//BACKGROUND COLORS
+$mainBackgroundColor:#E3E3E3 !important;
+$headerBackgroundColor:#343647 !important;
+$headerTextColor:#FFFFFF !important;
+$secondBackgroundColor:#BEBEBE !important;
+$calenderBackgroundColor:#e6e6e6 !important;
+$lightBackgroundColor:#F0F0F0 !important;
+
+//BUTTON COLORS
+$buttonColor:#efefef !important;
+$buttonWidth:160px !important;
+
+//OTHERS
+$bannerFont:43px !important;
+$bannerFontWeight:700 !important;
+
+
+$boxPadding:3rem 2rem !important;
+
+
+//FOR CALENDER (DO NOT DELETE)
+.highlight {
+    color:red;
+ }
+.react-calendar__navigation{
+    display:none;
+}
+
+$newCandidate:silver ;
+$screeningCandidate:navy ;
+$qualifiedCandidate:orange ;
+$interviewCandidate:blue ;
+$offerCandidate:#e8e805 ;
+$hiredCandidate:#0ce90c ;
+$rejectedCandidate:red ;

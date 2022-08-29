@@ -1,0 +1,28 @@
+.sectionfooter{
+    background-color: $headerBackgroundColor;
+    // padding: 2rem 0rem;
+    padding: 1rem 0rem 0rem 0rem;
+
+    &_box{
+        padding: $boxPadding;
+    }
+    &_box_end{
+        padding: 4rem 2rem !important;
+        text-align: end;
+    }
+
+    h5{
+        color: $textcolorWhite;
+    }
+
+    ul{
+        list-style: none;
+        line-height: 32px;
+        color: $textcolorWhite;
+    }
+    p{
+        color: $textcolorWhite;
+        padding-top: 60px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,61 @@
+.navbar-dark .navbar-nav .nav-link {
+    color: $headerTextColor;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+}
+.navbar-dark .navbar-brand {
+    color: $mainTextcolor;
+    font-weight: 500;
+    margin-left: 1%;
+}
+.bg-dark {
+    background-color: $headerBackgroundColor;
+    padding-top: 1rem;
+    border-bottom: solid 1px $mainTextcolor;
+}
+.long-navlink {
+    min-width: 130px;
+}
+.long-navlink-button {
+    min-width: 150px;
+}
+.mid-navlink{
+    min-width: 80px;
+    text-align: right !important;
+}   
+.button_signin{
+    background-color:  #4b4d65 !important;
+    color: $mainBackgroundColor;
+
+    
+    font-size: 12px;
+    padding: 9px 9px 9px 15px;
+    border-radius: 20px;
+
+
+    &_icon{
+        background-color: $headerBackgroundColor;
+        color: white;
+        border-radius: 52%;
+        padding: 2px 5px 4px 5px;
+        margin-left: -11px;
+        border: solid 2px;
+    }
+}
+@media screen and (max-width: 1025px) {
+    .button_signin{
+        padding: 9px 11px 9px 15px;
+    }
+}
+@media screen and (max-width: 769px) {
+    .navbar-dark .navbar-nav .nav-link{
+        text-align:center !important;
+    }
+}
+.notification-count{
+    color: white;
+    position: absolute;
+    margin-top: 5px;
+    font-size: 11px;
+}

@@ -1,0 +1,411 @@
+@import "variables";
+@import "header";
+@import "footer";
+
+@import "home";
+@import "mylessons";
+
+body{
+    font-family: Roboto !important;
+}
+.cusvideo {
+    width: 100%;
+
+    &_white {
+        border-radius: 13px;
+        border: 4px solid white;
+    }
+}
+
+.ql-container{
+    height:75% !important;
+}
+.ant-form-item-has-error{
+    .ql-container.ql-snow{
+         border-color: #ff4d4f !important;
+    }
+    .ql-toolbar.ql-snow{
+        border-color: #ff4d4f !important;
+    }
+   
+}
+.header, .ant-menu.ant-menu-dark{
+    
+    background-color: #0b51b7 !important;
+    .ant-menu-dark .ant-menu-item > span > a{
+        color:white !important;
+    }
+}
+.rounded_number{
+
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 4px;
+    border: 2px solid;
+    text-align: center;
+    font-size: 16px;
+}
+.ant-timeline-item-tail{
+    top: 20px !important;
+    height: calc(100% - 30px) !important;
+}
+.ant-timeline-item-last {
+    .ant-timeline-item-tail{
+        display: initial !important;
+    }
+}
+.ant-statistic{
+    
+    text-align: center;
+}
+.ant-row-statistic{
+    justify-content: center;
+}
+//DROP DOWN PLUGIN
+// .css-1s2u09g-control {
+//     background-color: hsl(180deg 52% 75%) !important;
+//     border-color: hsl(180deg 52% 75%) !important;
+// }
+
+.css-319lph-ValueContainer{
+    background-color: hsl(180deg 52% 75%) !important;
+}
+.css-tlfecz-indicatorContainer{
+    background-color: hsl(180deg 52% 75%) !important;
+    :hover{
+        background-color: hsl(180deg 52% 75%) !important;
+    }
+}
+.css-g1d714-ValueContainer{
+    background-color: hsl(180deg 52% 75%) !important;
+    :hover{
+        background-color: hsl(180deg 52% 75%) !important;
+    }
+}
+
+
+//DROP DOWN PLUGIN
+
+
+
+//// DROP DOWN LAST ICON CHNAGE////
+.select1 {
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+    background-position: calc(100% - 12px) center !important;
+    background: url("data:image/svg+xml,<svg height='20px' width='20px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    // padding: 8px 32px 8px 16px;
+}
+/* To remove the arrow of select element in IE */
+.select1::-ms-expand {
+  display: none;
+}
+
+.select2 {
+	appearance:none;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+    background-position: calc(100% - 12px) center !important;
+    color: white !important;
+    background: url("https://img.icons8.com/sf-black/14/ffffff/expand-arrow.png") no-repeat;
+
+    // background: url("data:image/svg+xml,<svg height='20px' width='20px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    // padding: 8px 32px 8px 16px;
+}
+/* To remove the arrow of select element in IE */
+.select1::-ms-expand {
+  display: none;
+}
+
+
+
+
+.bBfHpH {
+    position: absolute;
+    top: unset !important;
+    height: 30px !important;
+    width: 30px !important;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: none !important;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 10px;
+    opacity: 0.6;
+    -webkit-transition: opacity 0.25s;
+    transition: opacity 0.25s;
+    left: 29rem !important;
+    right: initial;
+    bottom: -3.4rem !important;
+    border: 2px solid black !important;
+}
+.bBfHpH::before {
+    content: "";
+    height: 7px !important;
+    width: 7px !important;
+    background: transparent;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-25%, -50%) rotate(-135deg);
+    -ms-transform: translate(-25%, -50%) rotate(-135deg);
+    transform: translate(-25%, -50%) rotate(-135deg);
+}
+
+.dZkckO {
+    position: absolute;
+    top: unset !important;
+    height: 30px !important;
+    width: 30px !important;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: none !important;
+    z-index: 10;
+    cursor: pointer;
+    font-size: 10px;
+    opacity: 0.6;
+    -webkit-transition: opacity 0.25s;
+    transition: opacity 0.25s;
+    right: 29rem !important;
+    right: initial;
+    bottom: -3.4rem !important;
+    border: 2px solid black !important;
+}
+
+.dZkckO::before {
+    content: "";
+    height: 7px !important;
+    width: 7px !important;
+    background: transparent;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-75%, -50%) rotate(45deg);
+    -ms-transform: translate(-75%, -50%) rotate(45deg);
+    transform: translate(-75%, -50%) rotate(45deg);
+}
+
+@media (min-width: 1400px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 1151px;
+    }
+}
+
+.webbutton {
+    background-color: $mainTextcolor;
+    border: none;
+    padding: 7px 22px;
+    font-size: 14px;
+    color: $buttonColor;
+    width: $buttonWidth;
+}
+
+.webbutton2 {
+    background-color: $mainTextcolor;
+    border: none;
+    padding: 7px 22px;
+    font-size: 14px;
+    color: $buttonColor;
+    border: 1px solid white;
+    width: $buttonWidth;
+    position: relative;
+    margin-top: 7%;
+    font-weight: 500;
+    &:hover {
+        border: 1px solid $buttonColor;
+    }
+}
+
+.card {
+    border: none;
+}
+
+//home page slider
+.gZzsDe {
+    bottom: -44px !important;
+}
+
+
+.dates{
+    font-size:36px;
+    color: #c8c8c8;
+    cursor: pointer;
+}
+.today-date{
+    color: #4b4b4b;
+    font-size:36px;
+    cursor: pointer;
+}
+.normal-events{
+    margin-top: -25%;
+    margin-left: 10%;
+    font-size: 64px;
+    color: #c8c8c8;
+    line-height: 0;
+}
+.today-events{
+    margin-top: -25%;
+    margin-left: 10%;
+    font-size: 64px;
+    color: #4b4b4b;
+    line-height: 0;
+}
+
+
+// home page slider box badge
+.mainbadge {
+    // position: relative;
+    // top: 10px; right: 10px;
+    // width: 200px;
+    // height: 200px;
+    // background: #ccc;
+
+    span {
+        position: absolute;
+        top: 11px;
+        right: -1px;
+        background-color: #4b4d65;
+        padding: 2px 20px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #fbfefa;
+
+        // &::after{
+        //     position: absolute;
+        //     top: 100%;
+        //     right: 0;
+        //     width: 0;
+        //     height: 0;
+        //     border-bottom: 10px solid transparent;
+        //     border-left: 10px solid #848484;
+        //     content: "";
+        // }
+    }
+}
+
+//PLACEHOLDER
+::-webkit-input-placeholder {
+    /* Edge */
+    color: rgb(250, 250, 250);
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgb(250, 250, 250);
+}
+
+::placeholder {
+    color: rgb(250, 250, 250);
+}
+
+.webbutton {
+    background-color: rgba(255, 0, 0, 0) !important;
+    border: 2px solid black;
+    padding: 8px 23px;
+    border-radius: 42px;
+    font-size: 17px;
+    color: black !important;
+    width: 223px !important;
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+        margin-right: 15px;
+    }
+}
+.cancelbutton{
+    border: 0.5px solid rgb(122, 120, 115);
+    // box-shadow: 0 3px 0 0#4b4b4b;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -5px 8px -5px inset;
+    color: #4b4b4b;
+    margin-right: 5px;
+}
+.saveandassociate{
+    border: 1px solid rgba(24, 134, 236, 0.24);
+    // box-shadow: 0 3px 0 0#4b4b4b;
+    box-shadow: rgba(6, 122, 230, 0.24) 0px -5px 10px -5px inset;
+    color: #4b4b4b;
+    margin-right: 5px;
+}
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.header-logo {
+    float: left;
+    width: 160px;
+    /* height: 31px; */
+    margin: 0px 24px 16px 0;
+    background: rgb(255, 255 ,255 ,0.9);
+}
+.header-logo-new{
+    float: left;
+    margin: 0px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 4%;
+    width: 100%;
+    height:64px; 
+    text-align: center;
+}
+.ant-layout-header{
+    
+    padding: 0px 50px 50px 5px !important;
+
+}
+.sidebar-trigger{
+    color:white !important;
+    font-size:24px;
+}
+.site-layout-background {
+  background: #fff;
+}
+.marginLeftAuto{
+    margin-left: auto !important;
+}
+#login{
+    padding: 5%;
+}
+.no-hover{
+    background-color: transparent !important;
+}
+.ant-menu-item{
+ 
+    padding-left: 25px !important;   
+}
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item, .ant-menu-dark.ant-menu-horizontal > .ant-menu-submenu{
+    padding: 0px 20px 0px 5px !important;
+}
+.ant-menu-dark .ant-menu-item-selected .ant-menu-item-icon, .ant-menu-dark .ant-menu-item-selected .anticon{
+        color: #848484  !important;
+}
+.ant-dropdown-menu-item:not(:last-child) .search-result{
+    border-bottom: solid 1px #cecece;
+}
+.ant-dropdown-menu-item .search-result{
+    padding:1%;
+}
+.ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title{
+    padding : 0px 0px 0px 20px !important;
+}
+
+.ant-menu.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title{
+    
+   // padding: 0 calc(50% - 30px / 2) !important;
+}
