@@ -169,4 +169,5 @@ Route::get('/{url}', function ($url) {
 Route::get('/{url}/{url2}', function ($url,$url2) {
     return view('welcome');
 });
+
 Auth::routes();
