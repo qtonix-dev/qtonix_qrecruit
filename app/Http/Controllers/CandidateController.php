@@ -17,9 +17,39 @@ use App\Models\CandidateStageList;
 use App\Models\CandidateStatusList;
 use App\Models\SkillSet;
 use App\Models\Department;
+use DB;
 
 class CandidateController extends Controller
 {
+    public function getDashboardData(Request $request){
+        $candidateCountArray=CandidateDetail::select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%Y-%m-01') month_date"),  DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+            ->where('created_at','>',date('Y-m-01 H:i:s',strtotime(date('Y-m ').' -1 year +1 month')))
+            ->groupby('year','month')
+            ->orderBy('created_at','desc')->pluck('data','month_date')->toArray();
+            $candidate_inflow=[];
+
+        for($i=11;$i>=0;$i--){
+               $candidate_inflow[date("Y-m-01", strtotime( date( 'Y-m-01' )." -$i months"))]=0;
+        }
+        foreach($candidateCountArray as $index=>$candidateArray){
+
+            $candidate_inflow[$index]=$candidateArray;
+        }
+        $stage_summary=[];
+        $stages=CandidateStageList::get();
+
+        foreach($stages as $stage){
+
+            $stage_summary[$stage['name']]=CandidateDetail::where('stage',$stage->id)->count();
+        }
+            
+
+            return [
+                    'status'=>true,
+                    'candidate_inflow'=>$candidate_inflow,
+                    'stage_summary'=>$stage_summary
+                ];
+    }
     public function checkDuplicacyWithEmail(Request $request){
         $input=$request->all();
 
@@ -163,6 +193,8 @@ class CandidateController extends Controller
             $candidate_details->source=$input['source'];
             $candidate_details->candidate_owner=$input['candidate_owner'];
             $candidate_details->modified_date=date('Y-m-d H:i:s');
+            $candidate_details->stage=$input['candidate_stage'];
+            $candidate_details->rating=$input['rating'];
 
             $candidate_details->added_by=0;
 
@@ -298,6 +330,8 @@ class CandidateController extends Controller
             $candidate_details->source=$input['source'];
             $candidate_details->candidate_owner=$input['candidate_owner'];
             $candidate_details->modified_date=date('Y-m-d H:i:s');
+            $candidate_details->stage=$input['candidate_stage'];
+            $candidate_details->rating=$input['rating'];
 
             $candidate_details->added_by=0;
 
