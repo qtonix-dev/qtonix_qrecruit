@@ -79,7 +79,16 @@ Route::prefix('api')->middleware([ApiKeyMiddleware::class])->group(function () {
     Route::post('updateCandidateDetails', [CandidateController::class, 'updateCandidateDetails']);
     Route::post('removeResumeFromCandidate', [CandidateController::class, 'removeResumeFromCandidate']);
     Route::post('updateResumeForCandidate', [CandidateController::class, 'updateResumeForCandidate']);
-
+    Route::post('getDashboardData', [CandidateController::class, 'getDashboardData']);
+    Route::post('getCandidateforStageKanban', [CandidateController::class, 'getCandidateforStageKanban']);
+    Route::post('updateCandidateStageOfCandidate', [CandidateController::class, 'updateCandidateStageOfCandidate']);
+    Route::post('updateRatingReasonOfCandidate', [CandidateController::class, 'updateRatingReasonOfCandidate']);
+    Route::post('addNotesToCandidate', [CandidateController::class, 'addNotesToCandidate']);
+    Route::post('addCallLogsToCandidate', [CandidateController::class, 'addCallLogsToCandidate']);
+    Route::post('submitCandidateToManager', [CandidateController::class, 'submitCandidateToManager']);
+    Route::post('addRatingReviewForCandidate', [CandidateController::class, 'addRatingReviewForCandidate']);
+    Route::post('changeStatusOfCandidate', [CandidateController::class, 'changeStatusOfCandidate']);
+    
         
     Route::post('checkDuplicacyWithEmail', [CandidateController::class, 'checkDuplicacyWithEmail']);
     Route::post('checkDuplicacyWithMobileNo', [CandidateController::class, 'checkDuplicacyWithMobileNo']);
@@ -158,8 +167,7 @@ Route::post('send-reset-password-link', [ForgotPasswordController::class, 'sendR
 Route::post('submit-password', [ForgotPasswordController::class, 'submitPassword']);
 Route::post('reset/{token}', [ForgotPasswordController::class, 'resetpass']);
 
-
-
+Auth::routes();
 
 
 
@@ -167,10 +175,6 @@ Route::post('reset/{token}', [ForgotPasswordController::class, 'resetpass']);
 Route::get('/{url}', function ($url) {
     return view('welcome');
 });
-
 Route::get('/{url}/{url2}', function ($url,$url2) {
     return view('welcome');
 });
-
-
-Auth::routes();

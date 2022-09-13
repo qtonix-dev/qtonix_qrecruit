@@ -12,6 +12,8 @@ import DashboardNew from "./pages/DashboardNew";
 import Candidates from "./pages/Candidate/Candidates";
 import CreateCandidate from "./pages/Candidate/CreateCandidate";
 import EditCandidate from "./pages/Candidate/EditCandidate";
+import ViewCandidate from "./pages/Candidate/ViewCandidate";
+import CandidatesKanban from "./pages/Candidate/CandidatesKanban";
 
 import JobOpenings from "./pages/JobDetails/JobOpenings";
 import JobForm from "./pages/JobDetails/JobForm";
@@ -76,7 +78,9 @@ export default function App() {
                     <Route exact="true" path="/candidates" element={<Candidates />} />
                     <Route exact="true" path="/createCandidate" element={<CreateCandidate />} />
                     <Route exact="true" path="/editCandidate" element={<EditCandidate />} />
-
+                    <Route exact="true" path="/ViewCandidate" element={<ViewCandidate />} />
+                    <Route exact="true" path="/candidatesKanban" element={<CandidatesKanban />} />
+                    
                     <Route exact="true" path="/candidateStageForm" element={<CandidateStageForm />} />
                     <Route exact="true" path="/candidateStages" element={<CandidateStage />} />
                     <Route exact="true" path="/editCandidateStage" element={<EditCandidateStage />} />

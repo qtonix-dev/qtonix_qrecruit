@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Body from "../components/Body";
 import { Button, Checkbox, Form, Input,Col, Row, Card, Table, message, Divider,Skeleton,Popconfirm,Rate,Statistic   } from 'antd';
 import { AiOutlinePlus,AiOutlineEdit,AiFillDelete } from "react-icons/ai";
-import { StarFilled,SearchOutlined,UndoOutlined} from '@ant-design/icons';
+import { StarFilled,SearchOutlined,UndoOutlined,EyeFilled} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import API from "../../api/API";
 import cookie from 'react-cookies';
@@ -99,7 +99,7 @@ export const Candidates = (props) => {
       
     },
     render: (data) =>(<>  
-                         <span>{parseInt(data).toFixed(1)}</span> <StarFilled style={{'fontSize': '24px','position': 'absolute','marginLeft': '10px','color': ((data >= 3) ? '#1dca1d' : ((data ==3) ? '#cdcd1c' : 'red'))}}/>
+                         <span>{parseInt(data).toFixed(1)}</span> <StarFilled style={{'fontSize': '24px','position': 'absolute','marginLeft': '10px','color': ((data > 3) ? '#1dca1d' : ((data ==3) ? '#cdcd1c' : 'red'))}}/>
                        </>),
   },
   {
@@ -159,7 +159,12 @@ export const Candidates = (props) => {
       title: 'Action',
       dataIndex: '',
       key: 'x',
-      render: (data) =>(<>  {verifyAccess('Candidates','Edit')?
+      render: (data) =>(<>  
+                              {verifyAccess('Candidates','View')?
+                                <Link to={`/viewCandidate?id=${data.id}`}>
+                                <EyeFilled style={{'marginRight':'10px'}}/>
+                              </Link>:''  }
+                                {verifyAccess('Candidates','Edit')?
                                 <Link to={`/editCandidate?id=${data.id}`}>
                                 <AiOutlineEdit style={{'marginRight':'10px'}}/>
                               </Link>:''  }
@@ -180,7 +185,7 @@ const removeCandidate=(id)=>{
                         setCandidates(response.data.candidates.map(row => ({
                                   key: row.id,
                                   id: row.id,
-                                  rating: row.candidate_stage.rating,
+                                  rating: row.rating,
                                   name:row.name,
                                   city:row.city,
                                   stage:row.candidate_stage.name,
@@ -224,7 +229,7 @@ const removeCandidate=(id)=>{
                           setCandidates(response.data.candidates.map(row => ({
                                   key: row.id,
                                   id: row.id,
-                                  rating: row.candidate_stage.rating,
+                                  rating: row.rating,
                                   name:row.name,
                                   city:row.city,
                                   stage:row.candidate_stage.name,
@@ -259,7 +264,7 @@ const removeCandidate=(id)=>{
                             </Col>
                              )) }
                           </Row>
-                  <Table columns={columns} dataSource={candidates} onChange={onChange} />
+                        <Table columns={columns} dataSource={candidates} onChange={onChange} />
                   </>
                 }
                 </Body>

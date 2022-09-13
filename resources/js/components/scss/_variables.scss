@@ -1,6 +1,7 @@
 //TEXT COLORS
 $mainTextcolor:#343647 !important;
 $textcolorWhite:#FFFFFF !important;
+$textcolorBlack:#000000 !important;
 
 
 //BACKGROUND COLORS
@@ -32,9 +33,16 @@ $boxPadding:3rem 2rem !important;
 }
 
 $newCandidate:silver ;
-$screeningCandidate:navy ;
+$newCandidateText :$textcolorBlack ;
+$screeningCandidate:#000080cc ;
+$screeningCandidateText :$textcolorWhite ;
 $qualifiedCandidate:orange ;
-$interviewCandidate:blue ;
-$offerCandidate:#e8e805 ;
-$hiredCandidate:#0ce90c ;
-$rejectedCandidate:red ;
+$qualifiedCandidateText :$textcolorBlack ;
+$interviewCandidate:#0000a9cc ;
+$interviewCandidateText :$textcolorWhite ;
+$offerCandidate:#e8e805cc;
+$offerCandidateText :$textcolorBlack ;
+$hiredCandidate:#0ce90ccc ;
+$hiredCandidateText :$textcolorBlack ;
+$rejectedCandidate:#e00000cc ;
+$rejectedCandidateText :$textcolorWhite ;

@@ -167,7 +167,7 @@ export const EditCandidate = (props) => {
       }
       //console.log(e.fileList);
       if(e.fileList.length==0){
-           API.post('/removeResumeFromCandidate',{'id':params.get("id")}).then(response=>{});
+           API.post('/removeResumeFromCandidate',{'id':params.get("id"),'user_id':cookie.load('userDetails').id}).then(response=>{});
       }
       return e?.fileList;
     };
@@ -245,7 +245,7 @@ export const EditCandidate = (props) => {
     const onRecruiterChange = () => {}
     const uploadDraggerChange=(e)=>{
         if(e.fileList.length && e.fileList[0].response){
-           API.post('/updateResumeForCandidate',{'id':params.get("id"),'filenametostore':e.fileList[0].response.filenametostore,'originalFileName':e.fileList[0].response.originalFileName  }).then(response=>{});
+           API.post('/updateResumeForCandidate',{'id':params.get("id"),'filenametostore':e.fileList[0].response.filenametostore,'originalFileName':e.fileList[0].response.originalFileName,'user_id':cookie.load('userDetails').id  }).then(response=>{});
       }
     }
     const onRadioChange = (index, event) => {
@@ -258,6 +258,7 @@ export const EditCandidate = (props) => {
         formData.educations=educationDetails;
         formData.experiences=experienceDetails;
         formData.canidateSkills=canidateSkills;
+        formData.user_id=userDetails.id;
           const hide = message.loading('Loading', 0);
          API.post('/updateCandidateDetails',formData)
               .then(response=>{
@@ -449,11 +450,7 @@ export const EditCandidate = (props) => {
                                             </Select>
                                         </Form.Item>
                                     </Col>
-                                     <Col  span={12}>
-                                          <Form.Item name="rating" label="Candidate Rating">
-                                            <Rate />
-                                          </Form.Item>
-                                     </Col>
+                                    
 
                                     <Col span={12}>
                                         <Form.Item label="Source" name="source" rules={[{ required: true, message: 'Source is required!' }]}  >
@@ -477,14 +474,19 @@ export const EditCandidate = (props) => {
                                         </Form.Item>
                                     </Col>
 
-                                    { candidateStageName!='Rejected'?
-                                        <></>:
+                                    {/*{ candidateStageName!='Rejected'?
+                                        <></>:*/}
+                                         <Col  span={24}>
+                                              <Form.Item labelCol={{span: 4}} wrapperCol={{span: 12}} name="rating" label="Candidate Rating">
+                                                <Rate />
+                                              </Form.Item>
+                                         </Col>
                                         <Col  span={24} >
-                                            <Form.Item labelCol={{span: 4}} wrapperCol={{span: 12}} label="Reason of Rejection " name="rejection_reason" rules={[{ required: true, message: 'Reason is required!' }]}  >
+                                            <Form.Item labelCol={{span: 4}} wrapperCol={{span: 12}} label="Reviews " name="rejection_reason" rules={[{ required: true, message: 'Reason is required!' }]}  >
                                                     <Input.TextArea />
                                             </Form.Item>
                                         </Col>
-                                    }
+                                   {/* }*/}
                                 </Row>
 
                                 <h4 style={{marginBottom:'3%'}}>Educational Details</h4>

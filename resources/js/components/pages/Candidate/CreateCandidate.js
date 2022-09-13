@@ -217,6 +217,7 @@ export const CreateCandidate = (props) => {
         formData.educations=educationDetails;
         formData.experiences=experienceDetails;
         formData.canidateSkills=canidateSkills;
+        formData.user_id=userDetails.id;
           const hide = message.loading('Loading', 0);
          API.post('/saveCandidateDetails',formData)
               .then(response=>{

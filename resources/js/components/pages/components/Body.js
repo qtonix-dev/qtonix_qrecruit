@@ -125,6 +125,8 @@ export const Body = (props) => {
         var candidateSideBarItems=[
                             { key: '/candidates' ,label: <Link to='/candidates'>Candidates</Link>,className: verifyAccess('Candidates','View') ? '':'display-none' },
                             { key: '/createCandidate' ,label: <Link to='/createCandidate'>Add Candidates</Link>,className: verifyAccess('Candidates','Add') ? '':'display-none' },
+                            { key: '/candidatesKanban' ,label: <Link to='/candidatesKanban'>Candidates Kanban</Link>,className: verifyAccess('Candidates','Edit') ? '':'display-none' },
+                            
                             
                         ]; 
         var userSideBarItems=[
@@ -158,7 +160,7 @@ export const Body = (props) => {
                                   },
                                   { label: <span>Users</span>, key: 'settings-users', className: ( verifyAccess('Departments','View') || verifyAccess('Departments','Add') ) ? 'padding-left-20':'display-none padding-left-20',
                                     children: [
-                                                { key: '/departments' , label: <Link to='/departments' activeClassName='active'>Departments</Link>,className: verifyAccess('Departments','View') ? '':'display-none' },
+                                                { key: '/departments' , label: <Link to='/departments' >Departments</Link>,className: verifyAccess('Departments','View') ? '':'display-none' },
                                                 { key: '/createDepartment' , label: <Link to='/createDepartment'>Add Departments</Link>,className: verifyAccess('Departments','Add') ? '':'display-none' },
                                               ],
                                   },
@@ -167,7 +169,7 @@ export const Body = (props) => {
         var sidebarItems = [
               {
                 key:'/dashboard' ,
-                title: 'Dashboard',
+                title: '',
                 label: <FundProjectionScreenOutlined />,
                 className: '', 
               },
@@ -345,7 +347,7 @@ export const Body = (props) => {
                  setSecondarySideBar(location.pathname);
                }
 
-            }else if(['/candidates','/createCandidate','/editCandidate'].includes(location.pathname)){
+            }else if(['/candidates','/createCandidate','/candidatesKanban','/editCandidate'].includes(location.pathname)){
                setCurrentSideber('/candidates');
                if(location.pathname=='/editCandidate'){
                  setSecondarySideBar('/candidates');
@@ -417,7 +419,7 @@ export const Body = (props) => {
             }}
           >
             <Layout
-              className="site-layout-background"
+              className={props.className+" site-layout-background"}
               style={{
                 padding: '24px 0',
               }}

@@ -24,8 +24,12 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "@asseinfo/react-kanban": "^2.2.0",
         "antd": "^4.22.3",
         "chart.js": "^3.9.1",
+        "chartjs-gauge": "^0.3.0",
+        "chartjs-plugin-datalabels": "^2.1.0",
+        "chartjs-plugin-funnel": "^1.1.5",
         "dotenv": "^16.0.1",
         "moment": "^2.29.4",
         "react-bootstrap-v5": "^1.4.0",
