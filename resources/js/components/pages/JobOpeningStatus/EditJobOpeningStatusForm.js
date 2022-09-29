@@ -19,10 +19,10 @@ export const EditJobOpeningStatusForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Job Opening Status','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -50,7 +50,7 @@ export const EditJobOpeningStatusForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/jobOpeningStatus');
+                         navigate(API.defaults.frontURL+'/jobOpeningStatus');
                       }else{
                           message.error('Error occurred');
                       }

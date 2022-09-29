@@ -16,10 +16,10 @@ export const CandidateSourceForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Sources','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }    
         }, [])
 
@@ -30,7 +30,7 @@ export const CandidateSourceForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/candidateSources');
+                         navigate(API.defaults.frontURL+'/candidateSources');
                       }else{
                           message.error('Error occurred');
                       }

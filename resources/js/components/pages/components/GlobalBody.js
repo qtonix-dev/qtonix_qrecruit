@@ -5,6 +5,7 @@ import 'antd/dist/antd.css';
 import {Link} from 'react-router-dom';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
+import API from "../../api/API";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -18,7 +19,7 @@ export const GlobalBody = (props) => {
      var headerItems=[
               {
                 key:'login' ,
-                label: <Link to='/login'>Login</Link>,
+                label: <Link to={API.defaults.frontURL+'/login'}>Login</Link>,
                 className: 'marginLeftAuto', 
               }
             ];
@@ -31,8 +32,8 @@ export const GlobalBody = (props) => {
         <Layout>
           <Header className="header">
             <div className="header-logo">
-                <Link to='/'>
-                  <img src="/images/22.png" style={{ width: "100%" }} />
+                <Link to={API.defaults.frontURL+'/'}>
+                  <img src={API.defaults.publicURL+"/images/22.png"} style={{ width: "100%" }} />
                 </Link>
             </div>
             <Menu theme="dark" mode="horizontal"   defaultSelectedKeys={['/']} items={headerItems} />

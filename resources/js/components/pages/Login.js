@@ -16,7 +16,7 @@ export const Login = (props) => {
           //cookie.remove('userDetails');
          const userDetails=cookie.load('userDetails');
          if(userDetails){
-           navigate('/dashboard');
+           navigate(API.defaults.frontURL+'/dashboard');
          }
         }, [cookie])
 
@@ -30,7 +30,7 @@ export const Login = (props) => {
                         API.post('/getUserDetails',{'id':response.data.userId}).then(response=>{
                            cookie.save('userDetails', response.data.user_details);
                            //this.props.history.push('/dashboard'); 
-                           navigate('/dashboard');
+                           navigate(API.defaults.frontURL+'/dashboard');
 
                         });
                       }else{

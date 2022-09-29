@@ -52,7 +52,7 @@ export const Body = (props) => {
                         result.key=result.resultType+'_'+result.id;
                         if(result.resultType=='users'){
                            result.label= <div className="search-result">
-                                             <Link to={`/editUser?id=${result.id}`}>
+                                             <Link to={API.defaults.frontURL+`/editUser?id=${result.id}`}>
                                                  <UserOutlined /><span><b> {result.employee_id+' - '+result.name +' ('+result.user_type+') '}</b></span><br/>
                                              <span>{result.phone_number+' - '+result.email}</span>
                                              </Link> 
@@ -60,7 +60,7 @@ export const Body = (props) => {
                         }else if(result.resultType=='candidate'){
                            result.label=  <Badge.Ribbon text={result.candidate_stage_name} color="cyan"> 
                                              <div className="search-result">
-                                                <Link to={`/editCandidate?id=${result.id}`}>
+                                                <Link to={API.defaults.frontURL+`/editCandidate?id=${result.id}`}>
                                                    <IdcardOutlined /><span><b> {result.current_job_title+' - '+result.name}</b></span><br/>
                                                    <span>{result.mobileNo+' - '+result.email}</span>
                                                 </Link> 
@@ -69,7 +69,7 @@ export const Body = (props) => {
                         }else if(result.resultType=='job'){
                            result.label=  <Badge.Ribbon text={result.job_status} color="blue">
                                              <div className="search-result">
-                                               <Link to={`/editJobDetails?id=${result.id}`}>
+                                               <Link to={API.defaults.frontURL+`/editJobDetails?id=${result.id}`}>
                                                    <SolutionOutlined /><span><b> {result.posting_title+' - '+result.job_title}</b></span><br/>
                                                    <span>{'Manager: - '+result.hiring_manager_name}</span><br/>
                                                    <span>{'Recruiters: - '+result.recruiter_names}</span>
@@ -116,52 +116,62 @@ export const Body = (props) => {
                   },
                 ];
         var dashboardSideBarItems=[
-                               { key:'/dashboard' , label: <Link to='/dashboard'>Dashboard</Link>, className: '', },
+                               { key:'/dashboard' , label: <Link to={API.defaults.frontURL+'/dashboard'}>Dashboard</Link>, className: '', },
                             ];
         var JobOpeningSideBarItems=[
-                            { key:'/jobOpenings' ,label: <Link to='/jobOpenings'>Job Openings</Link>,className: verifyAccess('Jobs','View') ? '':'display-none' },
-                            { key:'/postJob' ,label: <Link to='/postJob'>Post a Job</Link> ,className: verifyAccess('Jobs','Add') ? '':'display-none'},
+                            { key:'/jobOpenings' ,label: <Link to={API.defaults.frontURL+'/jobOpenings'}>Job Openings</Link>,className: verifyAccess('Jobs','View') ? '':'display-none' },
+                            { key:'/postJob' ,label: <Link to={API.defaults.frontURL+'/postJob'}>Post a Job</Link> ,className: verifyAccess('Jobs','Add') ? '':'display-none'},
+                            { key:'/scheduledinterviews' ,label: <Link to={API.defaults.frontURL+'/scheduledinterviews'}>Scheduled Interviews</Link> ,className: verifyAccess('Scheduled Interviews','Add') ? '':'display-none'},
+                            { key:'/interviewCalender' , title: 'Scheduled Interviews (Calender)', label: <Link to={API.defaults.frontURL+'/interviewCalender'} >Interviews Calender</Link> ,className: verifyAccess('Scheduled Interviews','View') ? '':'display-none'},
+
                          ];
         var candidateSideBarItems=[
-                            { key: '/candidates' ,label: <Link to='/candidates'>Candidates</Link>,className: verifyAccess('Candidates','View') ? '':'display-none' },
-                            { key: '/createCandidate' ,label: <Link to='/createCandidate'>Add Candidates</Link>,className: verifyAccess('Candidates','Add') ? '':'display-none' },
-                            { key: '/candidatesKanban' ,label: <Link to='/candidatesKanban'>Candidates Kanban</Link>,className: verifyAccess('Candidates','Edit') ? '':'display-none' },
+                            { key: '/candidates' ,label: <Link to={API.defaults.frontURL+'/candidates'}>Candidates</Link>,className: verifyAccess('Candidates','View') ? '':'display-none' },
+                            { key: '/createCandidate' ,label: <Link to={API.defaults.frontURL+'/createCandidate'}>Add Candidates</Link>,className: verifyAccess('Candidates','Add') ? '':'display-none' },
+                            { key: '/candidatesKanban' ,label: <Link to={API.defaults.frontURL+'/candidatesKanban'}>Candidates (Kanban)</Link>,className: verifyAccess('Candidates','Edit') ? '':'display-none' },
+                            { key: '/submittedCandidates' ,label: <Link to={API.defaults.frontURL+'/submittedCandidates'}>Submitted Candidates</Link>,className: verifyAccess('Submitted Candidates','View') ? '':'display-none' },
                             
                             
                         ]; 
         var userSideBarItems=[
-                            { key:'/users' ,label: <Link to='/users'>Users</Link>,className: verifyAccess('Users','View') ? '':'display-none' },
-                            { key:'/createUser' ,label: <Link to='/createUser'>Add Users</Link> ,className: verifyAccess('Users','Add') ? '':'display-none'},
-                            { key:'/editProfile' ,label: <Link to='/editProfile'>Edit Profile</Link> },
+                            { key:'/users' ,label: <Link to={API.defaults.frontURL+'/users'}>Users</Link>,className: verifyAccess('Users','View') ? '':'display-none' },
+                            { key:'/createUser' ,label: <Link to={API.defaults.frontURL+'/createUser'}>Add Users</Link> ,className: verifyAccess('Users','Add') ? '':'display-none'},
+                            { key:'/editProfile' ,label: <Link to={API.defaults.frontURL+'/editProfile'}>Edit Profile</Link> },
                         ]; 
         var settingSidebarItems=[
                                  { 
                                     label: <span>Job Openings</span>, key: 'settings-job', className: (verifyAccess('Job Opening Status','View') || verifyAccess('Job Opening Status','Add') || verifyAccess('Job Types','View') || verifyAccess('Job Types','Add') || verifyAccess('Work Experiences','View') || verifyAccess('Work Experiences','Add') || verifyAccess('Skill Set','View') || verifyAccess('Skill Set','Add')) ? 'padding-left-20':'display-none padding-left-20',
                                     children: [
-                                                { key: '/jobOpeningStatus', label:<Link to='/jobOpeningStatus'>Job Opening Status</Link>,className: verifyAccess('Job Opening Status','View') ? '':'display-none' },
-                                                { key: '/createJobOpeningStatus', label:<Link to='/createJobOpeningStatus'>Add Job Opening Status</Link>,className: verifyAccess('Job Opening Status','Add') ? '':'display-none'},
-                                                { key: '/jobType', label:<Link to='/jobTypes'>Job Types</Link>,className: verifyAccess('Job Types','View') ? '':'display-none'},
-                                                { key: '/createJobType', label:<Link to='/createJobType'>Add Job Types</Link>,className: verifyAccess('Job Types','Add') ? '':'display-none'},
-                                                { key: '/workExperiences', label:<Link to='/workExperiences'>Work Experiences</Link>,className: verifyAccess('Work Experiences','View') ? '':'display-none'  },
-                                                { key: '/createWorkExperience', label:<Link to='/createWorkExperience'>Add Work Experiences</Link>,className: verifyAccess('Work Experiences','Add') ? '':'display-none'  },
-                                                { key: '/skillSet', label:<Link to='/skillSets'>Skill Set</Link>,className: verifyAccess('Skill Set','View') ? '':'display-none' },
-                                                { key: '/createSkillSet', label:<Link to='/createSkillSet'>Add Skill</Link>,className: verifyAccess('Skill Set','Add') ? '':'display-none' }
+                                                { key: '/jobOpeningStatus', label:<Link to={API.defaults.frontURL+'/jobOpeningStatus'}>Job Opening Status</Link>,className: verifyAccess('Job Opening Status','View') ? '':'display-none' },
+                                                { key: '/createJobOpeningStatus', label:<Link to={API.defaults.frontURL+'/createJobOpeningStatus'}>Add Job Opening Status</Link>,className: verifyAccess('Job Opening Status','Add') ? '':'display-none'},
+                                                { key: '/jobType', label:<Link to={API.defaults.frontURL+'/jobTypes'}>Job Types</Link>,className: verifyAccess('Job Types','View') ? '':'display-none'},
+                                                { key: '/createJobType', label:<Link to={API.defaults.frontURL+'/createJobType'}>Add Job Types</Link>,className: verifyAccess('Job Types','Add') ? '':'display-none'},
+                                                { key: '/workExperiences', label:<Link to={API.defaults.frontURL+'/workExperiences'}>Work Experiences</Link>,className: verifyAccess('Work Experiences','View') ? '':'display-none'  },
+                                                { key: '/createWorkExperience', label:<Link to={API.defaults.frontURL+'/createWorkExperience'}>Add Work Experiences</Link>,className: verifyAccess('Work Experiences','Add') ? '':'display-none'  },
+                                                { key: '/skillSet', label:<Link to={API.defaults.frontURL+'/skillSets'}>Skill Set</Link>,className: verifyAccess('Skill Set','View') ? '':'display-none' },
+                                                { key: '/createSkillSet', label:<Link to={API.defaults.frontURL+'/createSkillSet'}>Add Skill</Link>,className: verifyAccess('Skill Set','Add') ? '':'display-none' }
                                               ],
                                   },
                                   { label: <span>Candidates</span>, key: 'settings-candidate', className: (verifyAccess('Candidate Stages','View') || verifyAccess('Candidate Stages','Add') || verifyAccess('Candidate Status','View') || verifyAccess('Candidate Status','Add') || verifyAccess('Candidate Sources','View') || verifyAccess('Candidate Sources','Add')) ? 'padding-left-20':'display-none padding-left-20',
                                     children: [
-                                                { key: '/candidateStages', label:<Link to='/candidateStages'>Candidate Stages</Link>,className: verifyAccess('Candidate Stages','View') ? '':'display-none' },
-                                                { key: '/candidateStageForm', label:<Link to='/candidateStageForm'>Add Candidate Stages</Link>,className: verifyAccess('Candidate Stages','Add') ? '':'display-none' },
-                                                { key: '/candidateStatus', label:<Link to='/candidateStatus'>Candidate Status</Link>,className: verifyAccess('Candidate Status','View') ? '':'display-none'  },
-                                                { key: '/candidateStatusForm', label:<Link to='/candidateStatusForm'>Add Candidate Status</Link>,className: verifyAccess('Candidate Status','Add') ? '':'display-none'  },
-                                                { key: '/candidateSources', label:<Link to='/candidateSources'>Candidate Sources</Link>,className: verifyAccess('Candidate Sources','View') ? '':'display-none' },
-                                                { key: '/candidateSourceForm', label:<Link to='/candidateSourceForm'>Add Candidate Sources</Link>,className: verifyAccess('Candidate Sources','Add') ? '':'display-none' }
+                                                { key: '/candidateStages', label:<Link to={API.defaults.frontURL+'/candidateStages'}>Candidate Stages</Link>,className: verifyAccess('Candidate Stages','View') ? '':'display-none' },
+                                                { key: '/candidateStageForm', label:<Link to={API.defaults.frontURL+'/candidateStageForm'}>Add Candidate Stages</Link>,className: verifyAccess('Candidate Stages','Add') ? '':'display-none' },
+                                                { key: '/candidateStatus', label:<Link to={API.defaults.frontURL+'/candidateStatus'}>Candidate Status</Link>,className: verifyAccess('Candidate Status','View') ? '':'display-none'  },
+                                                { key: '/candidateStatusForm', label:<Link to={API.defaults.frontURL+'/candidateStatusForm'}>Add Candidate Status</Link>,className: verifyAccess('Candidate Status','Add') ? '':'display-none'  },
+                                                { key: '/candidateSources', label:<Link to={API.defaults.frontURL+'/candidateSources'}>Candidate Sources</Link>,className: verifyAccess('Candidate Sources','View') ? '':'display-none' },
+                                                { key: '/candidateSourceForm', label:<Link to={API.defaults.frontURL+'/candidateSourceForm'}>Add Candidate Sources</Link>,className: verifyAccess('Candidate Sources','Add') ? '':'display-none' },
+                                                { key: '/noteTypes' , label: <Link to={API.defaults.frontURL+'/noteTypes'} >Note Types</Link>, className: verifyAccess('Note Types','View') ? '':'display-none' }
                                               ],
                                   },
                                   { label: <span>Users</span>, key: 'settings-users', className: ( verifyAccess('Departments','View') || verifyAccess('Departments','Add') ) ? 'padding-left-20':'display-none padding-left-20',
                                     children: [
-                                                { key: '/departments' , label: <Link to='/departments' >Departments</Link>,className: verifyAccess('Departments','View') ? '':'display-none' },
-                                                { key: '/createDepartment' , label: <Link to='/createDepartment'>Add Departments</Link>,className: verifyAccess('Departments','Add') ? '':'display-none' },
+                                                { key: '/departments' , label: <Link to={API.defaults.frontURL+'/departments'} >Departments</Link>,className: verifyAccess('Departments','View') ? '':'display-none' },
+                                                { key: '/createDepartment' , label: <Link to={API.defaults.frontURL+'/createDepartment'}>Add Departments</Link>,className: verifyAccess('Departments','Add') ? '':'display-none' },
+                                              ],
+                                  },
+                                  { label: <span>Interview</span>, key: 'settings-interview', className: ( verifyAccess('Interview Types','View')) ? 'padding-left-20':'display-none padding-left-20',
+                                    children: [
+                                                { key: '/interviewTypes' , label: <Link to={API.defaults.frontURL+'/interviewTypes'} >Interview Types</Link>,className: verifyAccess('Interview Types','View') ? '':'display-none' }
                                               ],
                                   },
                                   
@@ -177,13 +187,13 @@ export const Body = (props) => {
                 key:'/jobOpenings' ,
                 title: 'Job Openings',
                 label: <SolutionOutlined />,
-                className: (verifyAccess('Jobs','View') || verifyAccess('Jobs','Add')) ? '':'display-none'
+                className: (verifyAccess('Jobs','View') || verifyAccess('Jobs','Add') || verifyAccess('Scheduled Interviews','View')) ? '':'display-none'
               },
               {
                 key:'/candidates' ,
                 title: 'Candidates',
                 label: <IdcardOutlined />,
-                className: (verifyAccess('Candidates','View') || verifyAccess('Candidates','Add')) ? '':'display-none'
+                className: (verifyAccess('Candidates','View') || verifyAccess('Candidates','Add') || verifyAccess('Submitted Candidates','Add') ) ? '':'display-none'
               },
               
               {
@@ -218,7 +228,7 @@ export const Body = (props) => {
               {
                 key:'logout' ,
                 title: 'Logout',
-                label: <Link to='/login' onClick={()=>handleLogout()}>Logout</Link>,
+                label: <Link to={API.defaults.frontURL+'/login'} onClick={()=>handleLogout()}>Logout</Link>,
                 className: 'marginLeftAuto',
                 icon:<PoweroffOutlined />
               }
@@ -231,11 +241,11 @@ export const Body = (props) => {
                       items={[
                           {
                             key: 'editProfile',
-                            label: <Link to='/editProfile'>Edit Profile</Link>,
+                            label: <Link to={API.defaults.frontURL+'/editProfile'}>Edit Profile</Link>,
                           },
                           {
                             key: 'logout',
-                            label: <Link to='/login' onClick={()=>handleLogout()}>Logout</Link>,
+                            label: <Link to={API.defaults.frontURL+'/login'} onClick={()=>handleLogout()}>Logout</Link>,
                           },
                           
                          ]}
@@ -245,52 +255,52 @@ export const Body = (props) => {
                       items={[
                           {
                             key: '/createCandidate',
-                            label: <Link to='/createCandidate'>Candidates</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createCandidate'}>Candidates</Link>,
                             className: verifyAccess('Candidates','Add') ? '':'display-none'
                           },
                           {
                             key: '/postJob',
-                            label: <Link to='/postJob'>Job</Link>,
+                            label: <Link to={API.defaults.frontURL+'/postJob'}>Job</Link>,
                             className: verifyAccess('Jobs','Add') ? '':'display-none'
                           },
                           {
                             key: '/createUser',
-                            label: <Link to='/createUser'>User</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createUser'}>User</Link>,
                             className: verifyAccess('Users','Add') ? '':'display-none'
                           },
                           {
                             key: '/createJobOpeningStatus',
-                            label: <Link to='/createJobOpeningStatus'>Job Status</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createJobOpeningStatus'}>Job Status</Link>,
                             className: verifyAccess('Job Opening Status','Add') ? '':'display-none'
                           },
                           {
                             key: '/createJobType',
-                            label: <Link to='/createJobType'>Job Type</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createJobType'}>Job Type</Link>,
                             className: verifyAccess('Job Types','Add') ? '':'display-none'
                           },
                           {
                             key: '/createDepartment',
-                            label: <Link to='/createDepartment'>Department</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createDepartment'}>Department</Link>,
                             className: verifyAccess('Departments','Add') ? '':'display-none'
                           },
                           {
                             key: '/createSkillSet',
-                            label: <Link to='/createSkillSet'>Skill</Link>,
+                            label: <Link to={API.defaults.frontURL+'/createSkillSet'}>Skill</Link>,
                             className: verifyAccess('Skill Set','Add') ? '':'display-none'
                           },
                           {
                             key: '/candidateStages',
-                            label: <Link to='/candidateStageForm'>Stage</Link>,
+                            label: <Link to={API.defaults.frontURL+'/candidateStageForm'}>Stage</Link>,
                             className: verifyAccess('Candidate Stages','Add') ? '':'display-none'
                           },
                           {
                             key: '/candidateStatus',
-                            label: <Link to='/candidateStatusForm'>Status</Link>,
+                            label: <Link to={API.defaults.frontURL+'/candidateStatusForm'}>Status</Link>,
                             className: verifyAccess('Candidate Status','Add') ? '':'display-none'
                           },
                           {
                             key: '/candidateSources',
-                            label: <Link to='/candidateSourceForm'>Source</Link>,
+                            label: <Link to={API.defaults.frontURL+'/candidateSourceForm'}>Source</Link>,
                             className: verifyAccess('Candidate Sources','Add') ? '':'display-none'
                           },
                           
@@ -339,7 +349,7 @@ export const Body = (props) => {
              if(location.pathname=='/dashboard'){
                setCurrentSideber('/dashboard');
             }
-            else if(['/jobOpenings','/postJob','/editJobDetails'].includes(location.pathname)){
+            else if(['/jobOpenings','/postJob','/editJobDetails','/interviews','/scheduledinterviews','/interviewCalender'].includes(location.pathname)){
                setCurrentSideber('/jobOpenings');
                if(location.pathname=='/editJobDetails'){
                  setSecondarySideBar('/jobOpenings');
@@ -347,7 +357,7 @@ export const Body = (props) => {
                  setSecondarySideBar(location.pathname);
                }
 
-            }else if(['/candidates','/createCandidate','/candidatesKanban','/editCandidate'].includes(location.pathname)){
+            }else if(['/candidates','/createCandidate','/candidatesKanban','/editCandidate','/submittedCandidates'].includes(location.pathname)){
                setCurrentSideber('/candidates');
                if(location.pathname=='/editCandidate'){
                  setSecondarySideBar('/candidates');
@@ -387,9 +397,9 @@ export const Body = (props) => {
       <Layout>
           <Sider trigger={null}  collapsed className="custom-sidebar">
              <div className="header-logo-new-one">
-                <Link to='/dashboard'>
+                <Link to={API.defaults.frontURL+'/dashboard'}>
                  
-                  <img src="/images/5.png" style={{ width: 40,'marginTop':10 }} />
+                  <img src={API.defaults.publicURL+"/images/5.png"} style={{ width: 40,'marginTop':10 }} />
 
                 </Link>
             </div>
@@ -400,7 +410,7 @@ export const Body = (props) => {
             : 
           <Sider trigger={null}  collapsed className="custom-sidebar-menu">
              <div className="header-logo-new-two">
-               <img src="/images/7.png" style={{ width: '100%','height':'auto' }}/>
+               <img src={API.defaults.publicURL+"/images/7.png"} style={{ width: '100%','height':'auto' }}/>
              </div>
              <Menu theme="light" mode="inline"  defaultSelectedKeys={[secondarySideBar]} items={currentSideber=='/dashboard'?dashboardSideBarItems:currentSideber=='/jobOpenings'?JobOpeningSideBarItems:currentSideber=='/candidates'?candidateSideBarItems:currentSideber=='/users'?userSideBarItems:settingSidebarItems} />
                 

@@ -127,7 +127,7 @@ export const Dashboard = (props) => {
        useEffect(()=>{
         const userDetails=cookie.load('userDetails');
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
           const hide = message.loading('Loading', 0);
         setLoading(true);

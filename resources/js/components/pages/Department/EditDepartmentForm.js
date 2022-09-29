@@ -19,10 +19,10 @@ export const EditDepartmentForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Departments','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -50,7 +50,7 @@ export const EditDepartmentForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/departments');
+                         navigate(API.defaults.frontURL+'/departments');
                       }else{
                           message.error('Error occurred');
                       }

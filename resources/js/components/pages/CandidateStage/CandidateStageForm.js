@@ -16,10 +16,10 @@ export const CandidateStageForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Stages','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
            
         }, [])
@@ -31,7 +31,7 @@ export const CandidateStageForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/candidateStages');
+                         navigate(API.defaults.frontURL+'/candidateStages');
                       }else{
                           message.error('Error occurred');
                       }

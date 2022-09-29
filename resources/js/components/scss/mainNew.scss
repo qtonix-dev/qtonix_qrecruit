@@ -239,6 +239,7 @@
 
 .react-kanban-board{
     min-height:500px;
+    overflow-y: auto !important;
     [data-rbd-droppable-context-id]{
 
         height: 80vh;
@@ -285,4 +286,12 @@
     .ant-avatar-string{
         font-size:24px;
     }
+}
+.fc-button-primary{
+    background-color:#1890ff !important;
+    border-color:#5aa8f7 !important;
+}.fc-button-primary:hover{
+    background-color:#46a6ff !important;
+}.fc-event, .fc-event-dot {
+    background-color: #1890ff !important;
 }

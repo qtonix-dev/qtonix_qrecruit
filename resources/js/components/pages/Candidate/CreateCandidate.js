@@ -177,10 +177,10 @@ export const CreateCandidate = (props) => {
     }
     useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidates','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         formDisabled=true;
@@ -223,7 +223,7 @@ export const CreateCandidate = (props) => {
               .then(response=>{
                  setTimeout(hide, 0);
                 if(response.data.status){
-                     navigate('/candidates');
+                     navigate(API.defaults.frontURL+'/candidates');
                   }else{
                       message.error(response.data.message);
                   }
@@ -447,7 +447,7 @@ export const CreateCandidate = (props) => {
                                 
                                 <Timeline >
                                 {educationDetails.map((education,index) => (
-                                    <Timeline.Item key={index} dot={<img src={"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
+                                    <Timeline.Item key={index} dot={<img src={API.defaults.publicURL+"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
 
                                     {/*<Timeline.Item key={index} dot={<span className="rounded_number">{ (index+1) > 9 ? "" + (index+1) : "0" + (index+1) }</span>}>*/}
                                         <Row>
@@ -496,7 +496,7 @@ export const CreateCandidate = (props) => {
                                 
                                 <Timeline>
                                 {experienceDetails.map((experience,index) => (
-                                    <Timeline.Item key={index} dot={<img src={"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
+                                    <Timeline.Item key={index} dot={<img src={API.defaults.publicURL+"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
                                         <Row>
                                             
                                             <Col span={12}>

@@ -31,7 +31,7 @@ const config = {
   ),
 
     onOk() {
-         API.post('/updateRatingReasonOfCandidate',{'candidateId':cookie.load('candidateId'),'rating': cookie.load('rating')})
+         API.post('/updateRatingReasonOfCandidate',{'candidate_id':cookie.load('candidateId'),'rating': cookie.load('rating')})
           .then(response=>{});
 
     },
@@ -63,7 +63,7 @@ const rejectionConfig = {
   ),
 
     onOk() {
-          API.post('/updateRatingReasonOfCandidate',{'candidateId':cookie.load('candidateId'),'rating': cookie.load('rating'),'rejection_reason': cookie.load('reason')})
+          API.post('/updateRatingReasonOfCandidate',{user_id:cookie.load('userDetails').id,'candidate_id':cookie.load('candidateId'),'rating': cookie.load('rating'),'rejection_reason': cookie.load('reason')})
         .then(response=>{});
     },
 
@@ -88,7 +88,7 @@ const ControlledBoard=() =>{
       }*/
        Modal.confirm(rejectionConfig);
      // setBoard(updatedBoard); 
-       API.post('/updateCandidateStageOfCandidate',{'candidateId':_card.id,'stage': destination.toColumnId,'user_id':cookie.load('userDetails').id })
+       API.post('/updateCandidateStageOfCandidate',{user_id:cookie.load('userDetails').id,'candidate_id':_card.id,'stage': destination.toColumnId,'user_id':cookie.load('userDetails').id })
         .then(response=>{
           if(response.data.status){
               setBoard(updatedBoard);   
@@ -133,7 +133,7 @@ const ControlledBoard=() =>{
             <Tooltip title={cardItem.name} placement="top">
                <Avatar size="small" style={{ backgroundColor: '#f56a00' }}>{getShortName(cardItem.name.toUpperCase())}</Avatar>
             </Tooltip>
-             <Link to={`/viewCandidate?id=${cardItem.id}`} style={{'float':'right',marginLeft: 'auto'}}>View Details</Link>
+             <Link to={API.defaults.frontURL+`/viewCandidate?id=${cardItem.id}`} style={{'float':'right',marginLeft: 'auto'}}>View Details</Link>
             </Row>
           </Card>
         )}
@@ -169,10 +169,10 @@ export const CandidatesKanban = (props) => {
   const userDetails=cookie.load('userDetails');  
         useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidates','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         const hide = message.loading('Loading', 0);
         setLoading(true);

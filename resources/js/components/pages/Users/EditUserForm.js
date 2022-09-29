@@ -21,7 +21,8 @@ export const EditUserForm = (props) => {
      const userDetails=cookie.load('userDetails');
      const [accessList,setAccessList]= useState({ Jobs:[], Candidates:[], Users:[],'Job Opening Status':[], 'Job Types':[],
                                                   'Work Experiences':[], 'Skill Set':[], 'Candidate Stages':[], 'Candidate Status':[],
-                                                   'Candidate Sources':[],'Departments':[]});
+                                                   'Candidate Sources':[],'Departments':[],'Note Types':[],'Interview Types':[],
+                                                   'Submitted Candidates':[],'Scheduled Interviews':[]});
      const [form] = Form.useForm();
      const verifyAccess=(section, action)=>{
        return Object.keys(userDetails.access).indexOf(section)>=0 && Object.values(userDetails.access)[Object.keys(userDetails.access).indexOf(section)].includes(action);
@@ -29,10 +30,10 @@ export const EditUserForm = (props) => {
       useEffect(() => {
         
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Users','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -98,7 +99,7 @@ export const EditUserForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/users');
+                         navigate(API.defaults.frontURL+'/users');
                       }else{
                           message.error(response.data.message);
                       }

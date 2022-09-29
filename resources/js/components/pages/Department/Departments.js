@@ -111,7 +111,7 @@ export const Departments = (props) => {
       key: 'x',
       render: (data) =>(<> 
                            {verifyAccess('Departments','Edit')?   
-                          <Link to={`/editDeparment?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editDeparment?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link>:''  }
                            {verifyAccess('Departments','Delete')?  
@@ -144,10 +144,10 @@ export const Departments = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Departments','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -174,7 +174,7 @@ export const Departments = (props) => {
                   <h2>Departments</h2>
                    <Divider orientation="right">
                     {verifyAccess('Departments','Add')?
-                    <Link to='/createDepartment'>
+                    <Link to={API.defaults.frontURL+'/createDepartment'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create Deparmment</span>
                         </Button>
                     </Link>:''  }

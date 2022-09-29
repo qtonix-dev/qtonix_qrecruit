@@ -183,10 +183,10 @@ export const EditCandidate = (props) => {
     }
     useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidates','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         formDisabled=true;
@@ -264,7 +264,7 @@ export const EditCandidate = (props) => {
               .then(response=>{
                  setTimeout(hide, 0);
                 if(response.data.status){
-                     navigate('/candidates');
+                     navigate(API.defaults.frontURL+'/candidates');
                   }else{
                       message.error(response.data.message);
                   }
@@ -493,7 +493,7 @@ export const EditCandidate = (props) => {
                                 
                                 <Timeline >
                                 {educationDetails.map((education,index) => (
-                                    <Timeline.Item key={index} dot={<img src={"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
+                                    <Timeline.Item key={index} dot={<img src={API.defaults.publicURL+"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
                                         <Row>
                                             
                                            
@@ -540,7 +540,7 @@ export const EditCandidate = (props) => {
                                 
                                 <Timeline>
                                 {experienceDetails.map((experience,index) => (
-                                    <Timeline.Item key={index} dot={<img src={"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
+                                    <Timeline.Item key={index} dot={<img src={API.defaults.publicURL+"/images/icons/"+(index+1)+".png"} style={{ width: '75%','height':'auto' }}/>}>
                                         <Row>
                                             
                                             <Col span={12}>

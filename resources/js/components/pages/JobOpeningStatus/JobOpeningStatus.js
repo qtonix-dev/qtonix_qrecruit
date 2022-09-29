@@ -110,7 +110,7 @@ export const JobOpeningStatus = (props) => {
       key: 'x',
       render: (data) =>(<>
                           {verifyAccess('Job Opening Status','Edit')?  
-                          <Link to={`/editJobOpeningStatus?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editJobOpeningStatus?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link>:''  }  
                           {verifyAccess('Job Opening Status','Delete')?
@@ -143,10 +143,10 @@ export const JobOpeningStatus = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Job Opening Status','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -173,7 +173,7 @@ export const JobOpeningStatus = (props) => {
                   <h2>Job Opening Status</h2>
                    <Divider orientation="right">
                    {verifyAccess('Job Opening Status','Add')?
-                    <Link to='/createJobOpeningStatus'>
+                    <Link to={API.defaults.frontURL+'/createJobOpeningStatus'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Status</span>
                         </Button>
                     </Link>:''  }

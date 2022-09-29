@@ -22,7 +22,7 @@ export const EditProfile = (props) => {
       useEffect(() => {
         const userDetails=cookie.load('userDetails');
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
         setLoading(true);
          console.log(loading);
@@ -88,7 +88,7 @@ export const EditProfile = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                        // navigate('/users');
+                        // navigate(API.defaults.frontURL+'/users');
                          message.success('Profile data updated successfully', 10);
                       }else{
                           message.error(response.data.message);

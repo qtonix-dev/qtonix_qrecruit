@@ -38,10 +38,10 @@ export const EditJobForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
           if(!verifyAccess('Jobs','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -166,7 +166,7 @@ export const EditJobForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/jobOpenings');
+                         navigate(API.defaults.frontURL+'/jobOpenings');
                       }else{
                           message.error(response.data.message);
                       }

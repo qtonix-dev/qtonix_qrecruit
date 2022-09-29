@@ -113,7 +113,7 @@ export const CandidateStage = (props) => {
       dataIndex: '',
       key: 'x',
       render: (data) =>(<> {verifyAccess('Candidate Stages','Edit')?  
-                          <Link to={`/editCandidateStage?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editCandidateStage?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link> :''  }
                            {verifyAccess('Candidate Stages','Delete')? 
@@ -146,10 +146,10 @@ export const CandidateStage = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Stages','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -176,7 +176,7 @@ export const CandidateStage = (props) => {
                   <h2>Candidate Stage </h2>
                    <Divider orientation="right">
                    {verifyAccess('Candidate Stages','Add')?
-                    <Link to='/candidateStageForm'>
+                    <Link to={API.defaults.frontURL+'/candidateStageForm'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Stage List</span>
                         </Button>
                     </Link>:'' }

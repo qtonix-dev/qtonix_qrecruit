@@ -109,7 +109,7 @@ export const WorkExperiences = (props) => {
       key: 'x',
       render: (data) =>(<>  
                           {verifyAccess('Work Experiences','Edit')?  
-                          <Link to={`/editWorkExperience?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editWorkExperience?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link> :''  } 
                           {verifyAccess('Work Experiences','Delete')?  
@@ -143,10 +143,10 @@ export const WorkExperiences = (props) => {
   useEffect(() => {
     const userDetails=cookie.load('userDetails');
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Work Experiences','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -173,7 +173,7 @@ export const WorkExperiences = (props) => {
                   <h2>Work Experiences</h2>
                    <Divider orientation="right">
                    {verifyAccess('Work Experiences','Add')?  
-                    <Link to='/createWorkExperience'>
+                    <Link to={API.defaults.frontURL+'/createWorkExperience'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Experiences</span>
                         </Button>
                     </Link>:''  }

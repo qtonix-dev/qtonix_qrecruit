@@ -16,10 +16,10 @@ export const JobTypeForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Job Types','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
            
         }, [])
@@ -31,7 +31,7 @@ export const JobTypeForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/jobTypes');
+                         navigate(API.defaults.frontURL+'/jobTypes');
                       }else{
                           message.error('Error occurred');
                       }

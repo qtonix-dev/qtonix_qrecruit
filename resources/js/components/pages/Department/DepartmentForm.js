@@ -16,10 +16,10 @@ export const DepartmentForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Departments','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
            
         }, [])
@@ -31,7 +31,7 @@ export const DepartmentForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/departments');
+                         navigate(API.defaults.frontURL+'/departments');
                       }else{
                           message.error('Error occurred');
                       }

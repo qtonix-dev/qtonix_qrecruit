@@ -19,10 +19,10 @@ export const EditCandidateStatus = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Status','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -50,7 +50,7 @@ export const EditCandidateStatus = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/candidateStatus');
+                         navigate(API.defaults.frontURL+'/candidateStatus');
                       }else{
                           message.error('Error occurred');
                       }

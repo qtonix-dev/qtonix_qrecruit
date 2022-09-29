@@ -10,7 +10,7 @@ export const Home = (props) => {
      const navigate = useNavigate();
     useEffect(()=>{
         
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          
     },[])
 

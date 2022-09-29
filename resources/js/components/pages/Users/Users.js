@@ -136,7 +136,7 @@ export const Users = (props) => {
       key: 'x',
       render: (data) =>(<>
                           {verifyAccess('Users','Edit')?  
-                          <Link to={`/editUser?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editUser?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link> :''  }
                           {verifyAccess('Users','Delete')? 
@@ -172,10 +172,10 @@ export const Users = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Users','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -205,7 +205,7 @@ export const Users = (props) => {
                   <h2>Users</h2>
                    <Divider orientation="right">
                    {verifyAccess('Users','Add')?
-                    <Link to='/createUser'>
+                    <Link to={API.defaults.frontURL+'/createUser'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New User</span>
                         </Button>
                     </Link>:''  }

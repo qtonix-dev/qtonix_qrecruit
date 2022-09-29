@@ -13,7 +13,7 @@ export const DashboardNew = (props) => {
        useEffect(()=>{
         const userDetails=cookie.load('userDetails');
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
     },[])
         return (

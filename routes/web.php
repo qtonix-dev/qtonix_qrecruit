@@ -15,6 +15,9 @@ use App\Http\Controllers\WorkExperienceController;
 use App\Http\Controllers\CandidateStatusListController;
 use App\Http\Controllers\CandidateSourceListController;
 use App\Http\Controllers\CandidateStageListController;
+use App\Http\Controllers\InterviewTypeController;
+use App\Http\Controllers\NoteTypeController;
+use App\Http\Controllers\InterviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,11 +86,29 @@ Route::prefix('api')->middleware([ApiKeyMiddleware::class])->group(function () {
     Route::post('getCandidateforStageKanban', [CandidateController::class, 'getCandidateforStageKanban']);
     Route::post('updateCandidateStageOfCandidate', [CandidateController::class, 'updateCandidateStageOfCandidate']);
     Route::post('updateRatingReasonOfCandidate', [CandidateController::class, 'updateRatingReasonOfCandidate']);
+    Route::post('updateExistingRating', [CandidateController::class, 'updateExistingRating']);
     Route::post('addNotesToCandidate', [CandidateController::class, 'addNotesToCandidate']);
     Route::post('addCallLogsToCandidate', [CandidateController::class, 'addCallLogsToCandidate']);
     Route::post('submitCandidateToManager', [CandidateController::class, 'submitCandidateToManager']);
     Route::post('addRatingReviewForCandidate', [CandidateController::class, 'addRatingReviewForCandidate']);
     Route::post('changeStatusOfCandidate', [CandidateController::class, 'changeStatusOfCandidate']);
+    Route::post('getSubmittedCandidateLists', [CandidateController::class, 'getSubmittedCandidateLists']);
+    Route::post('updateAttachmentsForCandidate', [CandidateController::class, 'updateAttachmentsForCandidate']);
+    Route::post('updateNotesOfCandidate', [CandidateController::class, 'updateNotesOfCandidate']);
+    Route::post('updateCallLogOfCandidate', [CandidateController::class, 'updateCallLogOfCandidate']);
+    Route::post('updateExistingAttachmentsForCandidate', [CandidateController::class, 'updateExistingAttachmentsForCandidate']);
+    
+    
+        
+    Route::post('getScheduledInterviewLists', [InterviewController::class, 'getScheduledInterviewLists']);
+    Route::post('getMetadataForInterviewForm', [InterviewController::class, 'getMetadataForInterviewForm']);
+    Route::post('scheduleAnInterview', [InterviewController::class, 'scheduleAnInterview']);
+    Route::post('rescheduleInterview', [InterviewController::class, 'rescheduleInterview']);
+    Route::post('completeInterview', [InterviewController::class, 'completeInterview']);
+    Route::post('cancelInterview', [InterviewController::class, 'cancelInterview']);
+    Route::post('updateInterviewDetails', [InterviewController::class, 'updateInterviewDetails']);
+    Route::post('getInterviewDetailsForEdit', [InterviewController::class, 'getInterviewDetailsForEdit']);
+    
     
         
     Route::post('checkDuplicacyWithEmail', [CandidateController::class, 'checkDuplicacyWithEmail']);
@@ -150,6 +171,19 @@ Route::prefix('api')->middleware([ApiKeyMiddleware::class])->group(function () {
     Route::post('getCandidateSourceDetails', [CandidateSourceListController::class, 'getCandidateSourceDetails']);
 
 
+    Route::post('getInterviewTypes', [InterviewTypeController::class, 'getInterviewTypes']);
+    Route::post('updateInterviewTypeDetails', [InterviewTypeController::class, 'updateInterviewTypeDetails']);
+    Route::post('saveInterviewTypeDetails', [InterviewTypeController::class, 'saveInterviewTypeDetails']);
+    Route::post('removeInterviewType', [InterviewTypeController::class, 'removeInterviewType']);
+    Route::post('getInterviewTypeDetails', [InterviewTypeController::class, 'getInterviewTypeDetails']);
+
+    Route::post('getNoteTypes', [NoteTypeController::class, 'getNoteTypes']);
+    Route::post('updateNoteTypeDetails', [NoteTypeController::class, 'updateNoteTypeDetails']);
+    Route::post('saveNoteTypeDetails', [NoteTypeController::class, 'saveNoteTypeDetails']);
+    Route::post('removeNoteType', [NoteTypeController::class, 'removeNoteType']);
+    Route::post('getNoteTypeDetails', [NoteTypeController::class, 'getNoteTypeDetails']);
+
+
 
 /*
     Route::get('createSuperAdmin', [UserController::class, 'createSuperAdmin']);*/
@@ -161,13 +195,14 @@ Route::prefix('api')->middleware([ApiKeyMiddleware::class])->group(function () {
 
     Route::post('api/uploadTempJobSummaryAttachment', [JobController::class, 'uploadTempJobSummaryAttachment']);
     Route::post('api/uploadTempResumeAttachment', [CandidateController::class, 'uploadTempResumeAttachment']);
+    Route::post('api/uploadTempAttachments', [CandidateController::class, 'uploadTempAttachments']);
 
 
 Route::post('send-reset-password-link', [ForgotPasswordController::class, 'sendResetPasswordLink'])->name('send-reset-password-link');
 Route::post('submit-password', [ForgotPasswordController::class, 'submitPassword']);
 Route::post('reset/{token}', [ForgotPasswordController::class, 'resetpass']);
 
-Auth::routes();
+//Auth::routes();
 
 
 

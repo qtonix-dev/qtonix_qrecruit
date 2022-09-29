@@ -109,7 +109,7 @@ export const JobTypes = (props) => {
       key: 'x',
       render: (data) =>(<> 
                           {verifyAccess('Job Types','Edit')? 
-                          <Link to={`/editJobType?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editJobType?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link> :''  }
                           {verifyAccess('Job Types','Delete')? 
@@ -142,10 +142,10 @@ export const JobTypes = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Job Types','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -172,7 +172,7 @@ export const JobTypes = (props) => {
                   <h2>Job Types</h2>
                    <Divider orientation="right">
                    {verifyAccess('Job Types','Add')?
-                    <Link to='/createJobType'>
+                    <Link to={API.defaults.frontURL+'/createJobType'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Type</span>
                         </Button>
                     </Link>:''  }

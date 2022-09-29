@@ -111,7 +111,7 @@ export const CandidateStatus = (props) => {
       key: 'x',
       render: (data) =>(<>  
                           {verifyAccess('Candidate Status','Edit')?  
-                          <Link to={`/editCandidateStatus?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editCandidateStatus?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link>  :''  }
                           {verifyAccess('Candidate Status','Delete')?  
@@ -144,10 +144,10 @@ export const CandidateStatus = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Status','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -174,7 +174,7 @@ export const CandidateStatus = (props) => {
                   <h2>Candidate Status</h2>
                    <Divider orientation="right">
                    {verifyAccess('Candidate Status','Add')?  
-                    <Link to='/CandidateStatusForm'>
+                    <Link to={API.defaults.frontURL+'/CandidateStatusForm'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Status</span>
                         </Button>
                     </Link>:''  }

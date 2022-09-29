@@ -19,10 +19,10 @@ export const EditWorkExperienceForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Work Experiences','Edit')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         setLoading(true);
          console.log(loading);
@@ -50,7 +50,7 @@ export const EditWorkExperienceForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/workExperiences');
+                         navigate(API.defaults.frontURL+'/workExperiences');
                       }else{
                           message.error('Error occurred');
                       }

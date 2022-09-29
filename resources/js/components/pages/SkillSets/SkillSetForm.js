@@ -16,10 +16,10 @@ export const SkillSetForm = (props) => {
     }
       useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Skill Set','Add')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
            
         }, [])
@@ -31,7 +31,7 @@ export const SkillSetForm = (props) => {
                   .then(response=>{
                      setTimeout(hide, 0);
                     if(response.data.status){
-                         navigate('/skillSets');
+                         navigate(API.defaults.frontURL+'/skillSets');
                       }else{
                           message.error('Error occurred');
                       }

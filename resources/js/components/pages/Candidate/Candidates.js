@@ -161,15 +161,15 @@ export const Candidates = (props) => {
       key: 'x',
       render: (data) =>(<>  
                               {verifyAccess('Candidates','View')?
-                                <Link to={`/viewCandidate?id=${data.id}`}>
+                                <Link to={API.defaults.frontURL+`/viewCandidate?id=${data.id}`}>
                                 <EyeFilled style={{'marginRight':'10px'}}/>
                               </Link>:''  }
                                 {verifyAccess('Candidates','Edit')?
-                                <Link to={`/editCandidate?id=${data.id}`}>
+                                <Link to={API.defaults.frontURL+`/editCandidate?id=${data.id}`}>
                                 <AiOutlineEdit style={{'marginRight':'10px'}}/>
                               </Link>:''  }
                            {verifyAccess('Candidates','Delete')?
-                          <Popconfirm title="Are you sure to delete?" onConfirm={()=>removeUser(data.id)}>
+                          <Popconfirm title="Are you sure to delete?" onConfirm={()=>removeCandidate(data.id)}>
                              <AiFillDelete style={{'cursor':'pointer','color':'red'}}/> 
                           </Popconfirm>:''  }
                        </>),
@@ -204,10 +204,10 @@ const removeCandidate=(id)=>{
     }
         useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidates','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
         const hide = message.loading('Loading', 0);
         setLoading(true);
@@ -247,7 +247,7 @@ const removeCandidate=(id)=>{
                   <h2>Candidates</h2>
                    <Divider orientation="right">
                     {verifyAccess('Candidates','Add')?
-                    <Link to='/createCandidate'>
+                    <Link to={API.defaults.frontURL+'/createCandidate'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Add Candidate</span>
                         </Button>
                     </Link>:'' }

@@ -114,7 +114,7 @@ export const CandidateSource = (props) => {
       key: 'x',
       render: (data) =>(<>  
                           {verifyAccess('Candidate Sources','Edit')?
-                          <Link to={`/editCandidateSource?id=${data.id}`}>
+                          <Link to={API.defaults.frontURL+`/editCandidateSource?id=${data.id}`}>
                             <AiOutlineEdit style={{'marginRight':'10px'}}/>
                           </Link> :''  }
                            {verifyAccess('Candidate Sources','Delete')? 
@@ -147,10 +147,10 @@ export const CandidateSource = (props) => {
     }
   useEffect(() => {
          if(!userDetails){
-           navigate('/login');
+           navigate(API.defaults.frontURL+'/login');
          }
          if(!verifyAccess('Candidate Sources','View')){
-           navigate('/401');
+           navigate(API.defaults.frontURL+'/401');
          }
          setLoading(true);
         const hide = message.loading('Loading', 0);
@@ -177,7 +177,7 @@ export const CandidateSource = (props) => {
                   <h2>Candidate Sources</h2>
                    <Divider orientation="right">
                    {verifyAccess('Candidate Sources','Add')?
-                    <Link to='/CandidateSourceForm'>
+                    <Link to={API.defaults.frontURL+'/CandidateSourceForm'}>
                         <Button type="primary" shape="round" icon={<AiOutlinePlus style={{'marginTop':'-5%'}}/>} size={'Default'}> <span style={{'marginLeft':'5px'}}>Create New Source</span>
                         </Button>
                     </Link>:'' }
