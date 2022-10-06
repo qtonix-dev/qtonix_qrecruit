@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import DashboardNew from "./pages/DashboardNew";
+import Report from "./pages/Report/Report";
 
 import Candidates from "./pages/Candidate/Candidates";
 import SubmittedCandidates from "./pages/Candidate/SubmittedCandidates";
@@ -87,6 +88,7 @@ export default function App() {
                     <Route exact="true" path={API.defaults.frontURL+"/login"} element={<Login />} />
 
                     <Route exact="true" path={API.defaults.frontURL+"/dashboard"} element={<Dashboard />} />
+                    <Route exact="true" path={API.defaults.frontURL+"/report"} element={<Report />} />
 
                     <Route exact="true" path={API.defaults.frontURL+"/jobOpenings"} element={<JobOpenings />} />
                     <Route exact="true" path={API.defaults.frontURL+"/postJob"} element={<JobForm />} />

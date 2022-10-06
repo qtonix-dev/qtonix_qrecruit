@@ -10,6 +10,7 @@ use App\Models\CandidateExperienceDetail;
 use App\Models\CandidateSkill;
 use App\Models\CompanyDetail;
 use App\Models\CandidateStage;
+use App\Models\CandidateSourceList;
 use App\Models\CandidateStageList;
 use App\Models\JobDetail;
 use App\Models\JobOpeningStatus;
@@ -22,6 +23,124 @@ class UserController extends Controller
     public function __construct()
     {
        // $this->middleware('auth');
+    }
+    public function getMetaDataForReport(Request $request){
+         $input=$request->all();
+         $user=User::find($input['user_id']);
+
+            if($user->user_type=="Manager"){
+                $users=User::where('manager_id',$input['user_id'])
+                ->where('user_type','<>','Admin')
+                ->get();
+            }
+            else if($user->user_type=="Team Leader"){
+                $users=User::where('leader_id',$input['user_id'])
+                ->where('user_type','<>','Admin')
+                ->get();
+            }else if($user->user_type=="Recruiter"){
+                $users=User::where('id',$user->id)
+                ->where('user_type','<>','Admin')
+                ->get();
+            }else if($user->user_type=="Admin"){
+
+                 $users=User::whereNotIn('user_type',['Recruiter'])->get();
+            }
+        return ['status'=>true,'users'=> $users];
+    }
+    public function getReportOfUser(Request $request){
+        $input=$request->all();
+        
+     
+        $stages=CandidateStageList::get();
+        $user=User::find($input['user_id']);
+         $stages->map(function($stage) use ($user,$input){
+               if($user->user_type=="Manager"){
+
+                $recruiters=User::where('manager_id',$input['user_id'])->pluck('id')->toArray();
+                $stage['candidates']=CandidateDetail::where('stage',$stage->id)
+                        ->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))
+                            ->whereIn('candidate_owner',$recruiters)->get();
+            }
+            else if($user->user_type=="Team Leader"){
+
+                $recruiters=User::where('leader_id',$input['user_id'])->pluck('id')->toArray();
+                $stage['candidates']=CandidateDetail::where('stage',$stage->id)->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))->whereIn('candidate_owner',$recruiters)->get();
+
+            }else if($user->user_type=="Recruiter"){
+
+                 $stage['candidates']=CandidateDetail::where('stage',$stage->id)->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))->where('candidate_owner',$input['user_id'])->get();
+
+            }else if($user->user_type=="Admin"){
+
+                 $stage['candidates']=CandidateDetail::where('stage',$stage->id)->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))->get();
+            }
+
+             $stage['candidates']->map(function($candidate){
+                   $candidate['candidate_source_name']=CandidateSourceList::find($candidate['source'])?CandidateSourceList::find($candidate['source'])['name']:'';
+                });
+             });
+          if($user->user_type=="Manager"){
+
+                $recruiters=User::where('manager_id',$input['user_id'])->pluck('id')->toArray();
+                
+                 $candidateCountArray=CandidateDetail::select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') create_date"))
+                        ->whereIn('candidate_owner',$recruiters)
+                        ->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))
+                        ->groupby('create_date')
+                        ->orderBy('created_at','desc')->pluck('data','create_date')->toArray(); 
+
+            }
+            else if($user->user_type=="Team Leader"){
+
+                $recruiters=User::where('leader_id',$input['user_id'])->pluck('id')->toArray();
+               
+
+                 $candidateCountArray=CandidateDetail::select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') create_date"))
+                        ->whereIn('candidate_owner',$recruiters)
+                        ->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))
+                        ->groupby('create_date')
+                        ->orderBy('created_at','desc')->pluck('data','create_date')->toArray(); 
+
+            }else if($user->user_type=="Recruiter"){
+
+               
+                $candidateCountArray=CandidateDetail::select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') create_date"))
+                       ->where('candidate_owner',$input['user_id'])
+                        ->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))
+                        ->groupby('create_date')
+                        ->orderBy('created_at','desc')->pluck('data','create_date')->toArray(); 
+
+            }else if($user->user_type=="Admin"){
+
+                $candidateCountArray=CandidateDetail::select(DB::raw('count(id) as `data`'), DB::raw("DATE_FORMAT(created_at, '%Y-%m-%d') create_date"))
+                        ->where('created_at','>=',date("Y-m-d", strtotime( $input['range'][0])))
+                        ->where('created_at','<=',date("Y-m-d", strtotime( $input['range'][1])))
+                        ->groupby('create_date')
+                        ->orderBy('created_at','desc')->pluck('data','create_date')->toArray(); 
+
+
+            }
+        $candidate_inflow=[];
+
+         for($i=date_diff(date_create(date("Y-m-d", strtotime( $input['range'][0]))),date_create(date("Y-m-d", strtotime( $input['range'][1]))))->days;$i>0;$i--){
+               $candidate_inflow[date("Y-m-d", strtotime( date("Y-m-d", strtotime( $input['range'][1]))." -$i days"))]=0;
+        }
+        foreach($candidateCountArray as $index=>$candidateArray){
+
+            $candidate_inflow[$index]=$candidateArray;
+        }
+
+
+         return ['status'=>true,'stages'=> $stages,'candidate_inflow'=>$candidate_inflow];
+
+
     }
     public function getSearchResults(Request $request){
         $input=$request->all();

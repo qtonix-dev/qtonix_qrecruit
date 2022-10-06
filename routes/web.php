@@ -52,6 +52,8 @@ Route::prefix('api')->middleware([ApiKeyMiddleware::class])->group(function () {
     Route::post('tryLogin', [UserController::class, 'tryLogin']);
     Route::post('getUserDetailsForEdit', [UserController::class, 'getUserDetailsForEdit']);
     Route::post('getSearchResults', [UserController::class, 'getSearchResults']);
+    Route::post('getMetaDataForReport', [UserController::class, 'getMetaDataForReport']);
+    Route::post('getReportOfUser', [UserController::class, 'getReportOfUser']);
     
     Route::post('getMyCandidates', [HRController::class, 'getMyCandidates']);
     Route::post('getListsOfRecruiters', [HRController::class, 'getListsOfRecruiters']);

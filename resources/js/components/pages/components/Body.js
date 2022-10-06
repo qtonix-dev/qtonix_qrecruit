@@ -39,6 +39,9 @@ export const Body = (props) => {
     const verifyAccess=(section, action)=>{
        return Object.keys(userDetails.access).indexOf(section)>=0 && Object.values(userDetails.access)[Object.keys(userDetails.access).indexOf(section)].includes(action);
     }
+    const verifyAdminAccess=()=>{
+       return userDetails.user_type=='Admin';
+    }
     const handleChangeSearchCategory=(value)=>{
        setSearchCategory(value);
        getSearchResults({'input':searchText,'type':value.length?value[0]:'all'});
@@ -117,11 +120,12 @@ export const Body = (props) => {
                 ];
         var dashboardSideBarItems=[
                                { key:'/dashboard' , label: <Link to={API.defaults.frontURL+'/dashboard'}>Dashboard</Link>, className: '', },
+                               { key:'/report' , label: <Link to={API.defaults.frontURL+'/report'}>Reports</Link>, className: verifyAdminAccess() ? '':'display-none' },
                             ];
         var JobOpeningSideBarItems=[
                             { key:'/jobOpenings' ,label: <Link to={API.defaults.frontURL+'/jobOpenings'}>Job Openings</Link>,className: verifyAccess('Jobs','View') ? '':'display-none' },
                             { key:'/postJob' ,label: <Link to={API.defaults.frontURL+'/postJob'}>Post a Job</Link> ,className: verifyAccess('Jobs','Add') ? '':'display-none'},
-                            { key:'/scheduledinterviews' ,label: <Link to={API.defaults.frontURL+'/scheduledinterviews'}>Scheduled Interviews</Link> ,className: verifyAccess('Scheduled Interviews','Add') ? '':'display-none'},
+                           // { key:'/scheduledinterviews' ,label: <Link to={API.defaults.frontURL+'/scheduledinterviews'}>Scheduled Interviews</Link> ,className: verifyAccess('Scheduled Interviews','Add') ? '':'display-none'},
                             { key:'/interviewCalender' , title: 'Scheduled Interviews (Calender)', label: <Link to={API.defaults.frontURL+'/interviewCalender'} >Interviews Calender</Link> ,className: verifyAccess('Scheduled Interviews','View') ? '':'display-none'},
 
                          ];
@@ -346,7 +350,7 @@ export const Body = (props) => {
           }
         ];
     useEffect(() => {
-             if(location.pathname=='/dashboard'){
+             if( ['/dashboard','/report'].includes(location.pathname)){
                setCurrentSideber('/dashboard');
             }
             else if(['/jobOpenings','/postJob','/editJobDetails','/interviews','/scheduledinterviews','/interviewCalender'].includes(location.pathname)){

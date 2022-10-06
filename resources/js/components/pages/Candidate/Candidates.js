@@ -1,27 +1,181 @@
 import React, { useEffect,useState,useRef  } from 'react';
 import { connect } from 'react-redux';
 import Body from "../components/Body";
-import { Button, Checkbox, Form, Input,Col, Row, Card, Table, message, Divider,Skeleton,Popconfirm,Rate,Statistic   } from 'antd';
+import { Switch, Tag, Button, Checkbox, Form, Input,Col, Row, Card, Table, message, Divider,Skeleton,Popconfirm,Rate,Statistic,Modal,Avatar,Tooltip   } from 'antd';
 import { AiOutlinePlus,AiOutlineEdit,AiFillDelete } from "react-icons/ai";
-import { StarFilled,SearchOutlined,UndoOutlined,EyeFilled} from '@ant-design/icons';
+import { ExclamationCircleOutlined,StarFilled,EyeFilled,SearchOutlined,UndoOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import API from "../../api/API";
 import cookie from 'react-cookies';
 import { useNavigate } from 'react-router-dom';
 import Highlighter from 'react-highlight-words';
 
+
+import Board, { moveCard } from "@asseinfo/react-kanban";
+import "@asseinfo/react-kanban/dist/styles.css";
+
+var board = {
+      columns: []
+    };
+const config = {
+  title: 'Please give a rating to the candidate',
+  width:'700px',
+  content: (
+    <><Form>
+          <Row>
+            <Col  span={24}>
+              <Form.Item name="rating" label="Candidate Rating" labelCol={{span: 6}} wrapperCol={{span: 16}}>
+                <Rate onChange={value=>{cookie.save('rating', value);}}/>
+              </Form.Item>
+           </Col>
+        </Row>
+      </Form>
+    </>
+  ),
+
+    onOk() {
+         API.post('/updateRatingReasonOfCandidate',{'candidate_id':cookie.load('candidateId'),'rating': cookie.load('rating')})
+          .then(response=>{});
+
+    },
+
+    onCancel() {console.log('modal cancelled');},
+};
+
+const rejectionConfig = {
+  title: 'Please give a rating and review to the candidate',
+  width:'700px',
+  content: (
+    <><Form>
+          <Row>
+            <Col  span={24}>
+              <Form.Item name="rating" label="Rating" labelCol={{span: 6}} wrapperCol={{span: 16}}>
+                <Rate onChange={value=>{cookie.save('rating', value);}}/>
+              </Form.Item>
+           </Col>
+           
+            <Col  span={24} >
+                <Form.Item labelCol={{span: 6}} wrapperCol={{span: 16}} label="Review" name="rejection_reason"   >
+                  <Input.TextArea  onChange={event=>{cookie.save('reason', event.target.value);}}/>
+                </Form.Item>
+            </Col>
+            
+        </Row>
+      </Form>
+    </>
+  ),
+
+    onOk() {
+          API.post('/updateRatingReasonOfCandidate',{user_id:cookie.load('userDetails').id,'candidate_id':cookie.load('candidateId'),'rating': cookie.load('rating'),'rejection_reason': cookie.load('reason')})
+        .then(response=>{});
+    },
+
+    onCancel() {console.log('modal cancelled');},
+};
 const onChange = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
+
+const ControlledBoard=() =>{
+     const [controlledBoard, setBoard] = useState(board);
+     const handleCardMove=(_card, source, destination)=> {
+   
+    
+    const updatedBoard = moveCard(controlledBoard, source, destination);
+      
+      cookie.save('candidateId', _card.id);
+      cookie.save('stageId', destination.toColumnId);
+
+      /*if(board.columns.find(o => o.id == destination.toColumnId).title=='Rejected'){
+          Modal.confirm(rejectionConfig);
+      }else{
+
+         Modal.confirm(config);
+      }*/
+       Modal.confirm(rejectionConfig);
+     // setBoard(updatedBoard); 
+       API.post('/updateCandidateStageOfCandidate',{user_id:cookie.load('userDetails').id,'candidate_id':_card.id,'stage': destination.toColumnId,'user_id':cookie.load('userDetails').id })
+        .then(response=>{
+          if(response.data.status){
+              setBoard(updatedBoard);   
+           }
+            
+        });
+    
+  }
+  const updateBoard=()=>{
+    setBoard(updatedBoard);   
+  }
+  const getShortName=(str)=>{
+    var matches = str.match(/\b(\w)/g);
+        return matches.join('').substring(0,2);
+  }
+
+  return (
+    <Board 
+        onCardDragEnd={handleCardMove} 
+        disableColumnDrag
+        renderColumnHeader={(columnItem) => (
+           <div key={columnItem.id} className={'react-kanban-column-header ' +columnItem.title.toLowerCase() }>
+               <div >
+                   <span> {columnItem.title} </span>
+               </div>
+           </div>
+          )} 
+        renderCard={(cardItem, {  }) => (
+          <Card  style={{'width':'230px','marginTop': '5px','borderRadius':10}} className="kanban-card" key={cardItem.id}>
+
+            <p style={{'borderBottom':'1px solid #cecece','paddingBottom':'10px','fontWeight':600}} ><span  style={{'backgroundColor':'#2db7f5','color':'white','borderRadius':'5px','padding':'5px','fontSize':'14px'}}>{cardItem.current_job_title}</span>  <StarFilled style={{'marginLeft':'auto','verticalAlign':0,'float':'right','color': ((cardItem.rating > 3) ? '#1dca1d' : ((cardItem.rating ==3) ? '#cdcd1c' : 'red'))}}/></p>
+              
+            <p>
+              Rating : {cardItem.rating+'.0'} <br/>
+              Exp (in yr) : {cardItem.exp_in_year}<br/>
+              Email: {cardItem.email}<br/>
+              Mobile No.: {cardItem.mobileNo}<br/>
+              Current Employer: {cardItem.current_employer}<br/>
+              Status: {cardItem.candidate_status_name}
+             </p> 
+            <Row>
+            <Tooltip title={cardItem.name} placement="top">
+               <Avatar size="small" style={{ backgroundColor: '#f56a00' }}>{getShortName(cardItem.name.toUpperCase())}</Avatar>
+            </Tooltip>
+             <Link to={API.defaults.frontURL+`/viewCandidate?id=${cardItem.id}`} style={{'float':'right',marginLeft: 'auto'}}>View Details</Link>
+            </Row>
+          </Card>
+        )}
+        >
+      {controlledBoard}
+    </Board>
+  );
+}  
 export const Candidates = (props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+   const [reason, setReason] = useState('');
+  const [candidateId, setCandidateId] = useState(0);
+  const [stageId, setStageId] = useState(0);
+
   const [candidates, setCandidates] = useState([]);
   const [candidateStages, setCandidateStages] = useState([]);
-
+  const [modal, contextHolder] = Modal.useModal();
+  const [form] = Form.useForm();
   const searchInput = useRef(null);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
+  const [view, setView]= useState('table');
+   const onSwitchChange = (checked) => {
+      if(checked){
+        setView('calendar');
+      }else{
+        setView('table');
+      }
+  };
+  const onFinish = (formData) => {
+      console.log(formData);
+    };
+  const onFinishFailed = (errorInfo) => {
+          console.log('Failed:', errorInfo);
+  };
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -237,6 +391,20 @@ const removeCandidate=(id)=>{
                                   candidate_source_name:row.candidate_source_name,
                                   candidate_owner_name:row.candidate_owner_name
                                 })));
+                         board = {
+                                  columns:response.data.stages.map(row => ({
+                                  key: row.id,
+                                  id: row.id,
+                                  title: row.title,
+                                  class: row.class,
+                                  cards: row.cards,
+                                  name:row.name
+                                }))
+                                };
+
+
+
+
                       }
                       
                   });
@@ -254,19 +422,29 @@ const removeCandidate=(id)=>{
                    </Divider>
                     {loading ?  <Skeleton />: 
                       <>
-                          <Row className="ant-row-statistic" style={{justifyContent:'space-around',marginBottom:25}}>
-                              {candidateStages.map((stages) => (
-                            <Col span={Math.floor(24/candidateStages.length)} key={stages.id} className="canididate-stages"> 
-                              <Card className={stages.name.toLowerCase()}>
-                              <Statistic title={<span>{stages.name}</span>} value={stages.count} />
-                              </Card>
-                             
-                            </Col>
-                             )) }
-                          </Row>
-                        <Table columns={columns} dataSource={candidates} onChange={onChange} />
-                  </>
-                }
+                      <Row style={{marginBottom:10}}> 
+                             <Col span={1} offset={21}> Table </Col>
+                             <Col span={1}> <Switch  onChange={onSwitchChange} /></Col>
+                             <Col span={1}> Kanban </Col>  
+                         </Row>
+                        { view=='table'?
+                          <>
+                               <Row className="ant-row-statistic" style={{justifyContent:'space-around',marginBottom:25}}>
+                                  {candidateStages.map((stages) => (
+                                <Col span={Math.floor(24/candidateStages.length)} key={stages.id} className="canididate-stages"> 
+                                  <Card className={stages.name.toLowerCase()}>
+                                  <Statistic title={<span>{stages.name}</span>} value={stages.count} />
+                                  </Card>
+                                 
+                                </Col>
+                                 )) }
+                              </Row>
+                            <Table columns={columns} dataSource={candidates} onChange={onChange} />   
+                        </>:<>
+                  <ControlledBoard />
+                   {contextHolder}
+                   </>
+                } </> }
                 </Body>
               </>
           )

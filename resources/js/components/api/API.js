@@ -5,7 +5,7 @@ const API = axios.create({
     frontURL: '/qrecruit',*/
     baseURL: 'http://localhost:8000/api/',
     publicURL: 'http://localhost:8000',
-    frontURL: '/',
+    frontURL: '',
 });
 API.defaults.headers.common['api-key'] = 'base64:WXqlcIVsOU4o9TfGJcPnB/9yYgSsqIgkaNHOJcJXvRI=';
 

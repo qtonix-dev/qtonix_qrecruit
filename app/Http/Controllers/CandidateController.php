@@ -490,8 +490,30 @@ class CandidateController extends Controller
             }
 
         });
+
+        $stage_summary=[];
         $stages=CandidateStageList::get();
-        return ['status'=>true,'candidates'=>$candidates,'stages'=>$stages];
+        foreach($stages as $stage){
+            $stage_item['id']=$stage->id;
+            $stage_item['title']=$stage->name;
+            $stage_item['name']=$stage->name;
+            $stage_item['class']=$stage->name;
+            $fcandidates=CandidateDetail::select('*',DB::raw("CONCAT(current_job_title ,' ', current_employer) as title"))->where('stage',$stage->id)->get();
+            $fcandidates->map(function($candidate){
+                $candidate['education_details']=CandidateEducationalDetail::where('candidate_id',$candidate->id)->get();
+                $candidate['experience_details']=CandidateExperienceDetail::where('candidate_id',$candidate->id)->get();
+                $candidate['candidate_skills']=CandidateSkill::where('candidate_id',$candidate->id)->get();
+                $candidate['candidate_status_name']=CandidateStatusList::find($candidate->candidate_status)['name'];
+                $candidate['modified_date']=date('Y-m-d',strtotime($candidate->modified_date));
+                if($candidate['candidate_owner']){
+                     $candidate['candidate_owner_name']=User::find($candidate['candidate_owner'])['name'];
+                }
+
+            });
+            $stage_item['cards']=$fcandidates;
+            $stage_summary[]=$stage_item;
+        } 
+        return ['status'=>true,'candidates'=>$candidates,'stages'=>$stage_summary];
     }
     public function changeStatusOfCandidate(Request $request){
 
